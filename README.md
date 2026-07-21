@@ -15,10 +15,12 @@ kendisi veya telifli metin şimdiden repoya konmaz.
 
 ## Hazır Moby-Dick pilotu
 
-Depo, 52.8 saniyelik dört sahneli ilk pilotu içerir. İngilizce Ishmael anlatımı,
-altyazılar, cue zamanları ve dört sinematik başlangıç görseli önceden
-hazırlanmıştır. Colab defteri `deliverables/moby_dick_pilot_colab.zip` paketini
-otomatik açar; farklı bir proje seçilmedikçe `PROJECT_DIR` boş bırakılabilir.
+Depo, 51.9 saniyelik dört sahneli ilk pilotu içerir. Ishmael'in İngilizce dış
+ses anlatımı `en-US-BrianMultilingualNeural` ile hazırlanmıştır; karakterler
+görüntü içinde konuşmaz. Altyazılar, cue zamanları ve dört sinematik başlangıç
+görseli önceden hazırlanmıştır. Colab defteri
+`deliverables/moby_dick_pilot_colab.zip` paketini otomatik açar; farklı bir
+proje seçilmedikçe `PROJECT_DIR` boş bırakılabilir.
 
 ## Yerel hazırlık
 

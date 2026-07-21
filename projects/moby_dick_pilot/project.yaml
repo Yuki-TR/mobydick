@@ -11,10 +11,10 @@ output:
 
 speakers:
   ishmael:
-    voice: en-US-GuyNeural
-    rate: "-5%"
+    voice: en-US-BrianMultilingualNeural
+    rate: "+0%"
     volume: "+0%"
-    pitch: "-2Hz"
+    pitch: "+0Hz"
 
 scenes:
   - id: drizzly_manhattan
@@ -26,7 +26,8 @@ scenes:
       turns his gaze down the cobbled slope toward the harbor. His charcoal
       greatcoat shifts in the wind; distant masts sway subtly in sea mist. Slow
       restrained dolly forward, photorealistic historical drama, natural human
-      motion, stable face, authentic fabric, subtle 35mm grain, no text.
+      motion, stable face, mouth closed, no visible speech, authentic fabric,
+      subtle 35mm grain, no text.
     lines:
       - id: line_001
         speaker: ishmael
@@ -46,7 +47,8 @@ scenes:
       and hat brims stir in the salt breeze, rigging moves gently, distant ships
       cross the silver haze. Ishmael turns from camera toward the horizon as if
       answering a magnetic summons. Very slow lateral camera drift,
-      photorealistic period realism, stable identities, no text.
+      photorealistic period realism, stable identities, mouth closed, no
+      visible speech, no text.
     lines:
       - id: line_002
         speaker: ishmael
@@ -65,7 +67,8 @@ scenes:
       hemp line and pulls with the other sailors while the receding city glows
       beneath broken dawn clouds. Canvas fills gradually overhead and sea spray
       crosses the rail. Subtle handheld push, grounded physical motion,
-      photorealistic historical film, stable anatomy, no text.
+      photorealistic historical film, stable anatomy, mouth closed, no visible
+      speech, no text.
     lines:
       - id: line_003
         speaker: ishmael
@@ -85,7 +88,7 @@ scenes:
       mist, and begins to sink without attacking. Ishmael remains small and
       transfixed. Slow ominous dolly toward the horizon, physically believable
       whale and water, restrained awe, photorealistic 35mm historical drama,
-      no text or fantasy glow.
+      mouth closed, no visible speech, no text or fantasy glow.
     lines:
       - id: line_004
         speaker: ishmael
