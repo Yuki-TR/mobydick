@@ -183,7 +183,9 @@ def clone_pinned(item: dict[str, Any], root: Path) -> Path:
                 f"Origin mismatch for {item['name']}: {current_url!r} != {item['url']!r}"
             )
     commit = str(item["commit"])
-    run(["git", "fetch", "--depth", "1", "origin", commit], destination)
+    # Google Drive's FUSE mount can change .git/shallow while a shallow fetch
+    # reads it. A regular pinned fetch is larger but stable on persistent Drive.
+    run(["git", "fetch", "origin", commit], destination)
     # A dirty persistent checkout is user state; fail instead of overwriting it.
     run(["git", "checkout", "--detach", "FETCH_HEAD"], destination)
     actual = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=destination, text=True).strip()

@@ -62,7 +62,7 @@ Secrets içine `HF_TOKEN` ekleyin ve FLUX.2 Klein model koşullarını Hugging F
 - ComfyUI, creative-skills, KJNodes ve VideoHelperSuite commitleri
 - Flux.2 Klein 9B FP8 ve LTX-2.3 22B model yolları
 - gerekli ComfyUI node sınıfları
-- en az 24 GB VRAM ve 120 GB boş disk preflight'ı
+- en az 24 GB VRAM ve Drive bağlantısıyla uyumlu 50 GB yerel boş disk preflight'ı
 
 ComfyUI yalnızca `127.0.0.1:8188` üzerinde açılır. Cloudflare/ngrok benzeri
 kimlik doğrulamasız public tünel kurulmaz.
