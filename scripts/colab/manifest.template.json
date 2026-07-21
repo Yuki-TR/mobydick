@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "manifest_complete": false,
+  "workspace": "${COLAB_WORKSPACE}",
+  "repositories": [
+    {
+      "name": "ComfyUI",
+      "url": "https://github.com/comfyanonymous/ComfyUI.git",
+      "commit": "${COMFYUI_COMMIT}",
+      "destination": "ComfyUI",
+      "requirements": ["requirements.txt"],
+      "required": true
+    },
+    {
+      "name": "creative-skills",
+      "url": "https://github.com/venetanji/creative-skills.git",
+      "commit": "${CREATIVE_SKILLS_COMMIT}",
+      "destination": "creative-skills",
+      "requirements": [],
+      "required": true
+    }
+  ],
+  "custom_nodes": [],
+  "assets": [],
+  "preflight": {
+    "minimum_free_disk_gb": 150,
+    "minimum_gpu_vram_gb": 32,
+    "required_commands": ["git", "ffmpeg"],
+    "required_model_paths": [],
+    "required_node_classes": []
+  },
+  "notes": [
+    "This template intentionally contains no guessed model or custom-node URLs.",
+    "Replace it with a reviewed manifest containing exact HTTPS sources, pinned commits, destinations, and SHA-256 checksums.",
+    "Set manifest_complete=true only after required_model_paths and required_node_classes cover the selected workflow."
+  ]
+}

@@ -1,0 +1,3 @@
+[submodule "vendor/creative-skills"]
+	path = vendor/creative-skills
+	url = https://github.com/venetanji/creative-skills.git

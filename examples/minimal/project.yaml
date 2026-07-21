@@ -1,0 +1,43 @@
+version: 1
+project:
+  id: clockwork_owl
+  title: The Clockwork Owl
+  language: en-US
+
+output:
+  width: 1024
+  height: 576
+  fps: 24
+
+speakers:
+  narrator:
+    voice: en-US-GuyNeural
+  ada:
+    voice: en-US-JennyNeural
+
+scenes:
+  - id: workshop_opening
+    title: The Workshop Before Dawn
+    image: assets/placeholder.pbm
+    motion_prompt: >-
+      Wide cinematic shot of a dark clockmaker's workshop before dawn.
+      Dust moves through a narrow beam of blue window light; a slow camera push
+      approaches the silent workbench. Natural motion, realistic film texture.
+    lines:
+      - id: line_001
+        speaker: narrator
+        text: The workshop woke before dawn.
+        pause_after_ms: 350
+
+  - id: ada_promise
+    title: Ada Speaks to the Owl
+    image: assets/placeholder.pbm
+    motion_prompt: >-
+      Medium close shot of Ada leaning over a brass clockwork owl on the
+      workbench. She tightens one tiny screw, looks into its glass eyes, and
+      smiles with quiet determination. Subtle dolly in, cinematic realism.
+    lines:
+      - id: line_002
+        speaker: ada
+        text: Today, you will fly.
+        pause_after_ms: 0

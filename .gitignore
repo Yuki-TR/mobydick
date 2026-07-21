@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+build/
+.tmp/
+.tmp-runtime/
+.uv-cache/
+.uv-python/
+.venv/
+deliverables/moby_dick_pilot.zip

@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "manifest_complete": true,
+  "workspace": "${COLAB_WORKSPACE}",
+  "python_packages": [
+    "PyYAML==6.0.3",
+    "imageio-ffmpeg==0.6.0"
+  ],
+  "repositories": [
+    {
+      "name": "ComfyUI",
+      "url": "https://github.com/Comfy-Org/ComfyUI.git",
+      "commit": "7bf8bfcd078c7f4ae50ca5149c9ff7d8613e1fb1",
+      "destination": "ComfyUI",
+      "requirements": ["requirements.txt"],
+      "required": true
+    },
+    {
+      "name": "creative-skills",
+      "url": "https://github.com/venetanji/creative-skills.git",
+      "commit": "741bab9bb1da495e96949286695fccfd3ec931ff",
+      "destination": "creative-skills",
+      "requirements": [],
+      "required": true
+    }
+  ],
+  "custom_nodes": [
+    {
+      "name": "ComfyUI-KJNodes",
+      "url": "https://github.com/kijai/ComfyUI-KJNodes.git",
+      "commit": "e27a505b3ba6ce42687fe00500deda103d9d6071",
+      "destination": "ComfyUI/custom_nodes/ComfyUI-KJNodes",
+      "requirements": ["requirements.txt"],
+      "required": true
+    },
+    {
+      "name": "ComfyUI-VideoHelperSuite",
+      "url": "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git",
+      "commit": "4ee72c065db22c9d96c2427954dc69e7b908444b",
+      "destination": "ComfyUI/custom_nodes/ComfyUI-VideoHelperSuite",
+      "requirements": ["requirements.txt"],
+      "required": true
+    }
+  ],
+  "assets": [
+    {
+      "name": "FLUX.2 Klein 9B FP8",
+      "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-9b-fp8/resolve/main/flux-2-klein-9b-fp8.safetensors",
+      "destination": "ComfyUI/models/diffusion_models/flux-2-klein-9b-fp8.safetensors",
+      "token_env": "HF_TOKEN",
+      "sha256": "865ba09f5b4c3cbd3468a4bd3acb9fcb2f8740c54317482f0bcd4ed1d3655cee",
+      "minimum_bytes": 1000000000
+    },
+    {
+      "name": "Flux Qwen 3 8B text encoder",
+      "url": "https://huggingface.co/Comfy-Org/vae-text-encorder-for-flux-klein-9b/resolve/main/split_files/text_encoders/qwen_3_8b_fp8mixed.safetensors",
+      "destination": "ComfyUI/models/text_encoders/qwen_3_8b_fp8mixed.safetensors",
+      "token_env": "HF_TOKEN",
+      "sha256": "abad16806e0cbabc54e0325d6565847443fe396d5f0be38bb3cd3fe75a1201d6",
+      "minimum_bytes": 1000000000
+    },
+    {
+      "name": "Flux 2 VAE",
+      "url": "https://huggingface.co/Comfy-Org/vae-text-encorder-for-flux-klein-9b/resolve/main/split_files/vae/flux2-vae.safetensors",
+      "destination": "ComfyUI/models/vae/flux2-vae.safetensors",
+      "token_env": "HF_TOKEN",
+      "sha256": "d64f3a68e1cc4f9f4e29b6e0da38a0204fe9a49f2d4053f0ec1fa1ca02f9c4b5",
+      "minimum_bytes": 100000000
+    },
+    {
+      "name": "LTX 2.3 22B dev FP8",
+      "url": "https://huggingface.co/Lightricks/LTX-2.3-fp8/resolve/main/ltx-2.3-22b-dev-fp8.safetensors",
+      "destination": "ComfyUI/models/checkpoints/ltx-2.3-22b-dev-fp8.safetensors",
+      "token_env": "HF_TOKEN",
+      "sha256": "28606c5b5a06ce56f896d4dfcb20f212739e07a68fbe48e53638188449d26450",
+      "minimum_bytes": 10000000000
+    },
+    {
+      "name": "Gemma 3 12B FP8 encoder required by creative-skills",
+      "url": "https://huggingface.co/GitMylo/LTX-2-comfy_gemma_fp8_e4m3fn/resolve/main/gemma_3_12B_it_fp8_e4m3fn.safetensors",
+      "destination": "ComfyUI/models/text_encoders/gemma_3_12B_it_fp8_e4m3fn.safetensors",
+      "token_env": "HF_TOKEN",
+      "sha256": "38c8ca98d01afc93a04f9fb18255755884b9eb52b7b40080076e9c892609751b",
+      "minimum_bytes": 1000000000
+    },
+    {
+      "name": "LTX 2.3 distilled LoRA 384",
+      "url": "https://huggingface.co/Lightricks/LTX-2.3/resolve/main/ltx-2.3-22b-distilled-lora-384.safetensors",
+      "destination": "ComfyUI/models/loras/ltx-2.3-22b-distilled-lora-384.safetensors",
+      "token_env": "HF_TOKEN",
+      "sha256": "2943ab994f3c9d88052e5a2a34cca14e4a2dfc36b1d8c407931d52d5c25dd72b",
+      "minimum_bytes": 1000000000
+    },
+    {
+      "name": "LTX 2.3 spatial upscaler x2 v1.1",
+      "url": "https://huggingface.co/Lightricks/LTX-2.3/resolve/main/ltx-2.3-spatial-upscaler-x2-1.1.safetensors",
+      "destination": "ComfyUI/models/latent_upscale_models/ltx-2.3-spatial-upscaler-x2-1.1.safetensors",
+      "token_env": "HF_TOKEN",
+      "sha256": "5f416311fa8172b65af67530758964708d29a317b830d689a51143b7f91913ed",
+      "minimum_bytes": 900000000
+    }
+  ],
+  "preflight": {
+    "minimum_free_disk_gb": 120,
+    "minimum_gpu_vram_gb": 24,
+    "required_model_paths": [
+      "ComfyUI/models/diffusion_models/flux-2-klein-9b-fp8.safetensors",
+      "ComfyUI/models/text_encoders/qwen_3_8b_fp8mixed.safetensors",
+      "ComfyUI/models/vae/flux2-vae.safetensors",
+      "ComfyUI/models/checkpoints/ltx-2.3-22b-dev-fp8.safetensors",
+      "ComfyUI/models/text_encoders/gemma_3_12B_it_fp8_e4m3fn.safetensors",
+      "ComfyUI/models/loras/ltx-2.3-22b-distilled-lora-384.safetensors",
+      "ComfyUI/models/latent_upscale_models/ltx-2.3-spatial-upscaler-x2-1.1.safetensors"
+    ],
+    "required_node_classes": [
+      "CheckpointLoaderKJ",
+      "ResizeImageMaskNode",
+      "ResizeImagesByLongerEdge",
+      "VHS_LoadVideoPath",
+      "LoadVideo",
+      "GetVideoComponents",
+      "Flux2Scheduler",
+      "EmptyFlux2LatentImage",
+      "LTXAVTextEncoderLoader",
+      "LTXVAudioVAELoader",
+      "LatentUpscaleModelLoader",
+      "LoraLoaderModelOnly",
+      "LTXVConditioning",
+      "LTXVLatentUpsampler",
+      "LTXVAddGuide"
+    ]
+  },
+  "notes": [
+    "The FLUX.2 Klein repository is gated; accept its terms and set HF_TOKEN in Colab Secrets.",
+    "The Gemma FP8 encoder is the community file hard-coded by creative-skills commit 741bab9; all other model sources are official publisher or Comfy-Org repositories.",
+    "Every production model is pinned by its published SHA-256 and checked after download."
+  ]
+}

@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "book-video-colab"
+version = "0.1.0"
+description = "Book-to-ComfyUI preparation pipeline with Edge TTS"
+requires-python = ">=3.11"
+dependencies = [
+  "edge-tts==7.2.8",
+  "imageio-ffmpeg==0.6.0",
+  "PyYAML==6.0.3",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8,<10",
+  "pytest-cov>=5,<8",
+]
+
+[project.scripts]
+book-video = "book_video.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["book_video*"]
+
+[tool.pytest.ini_options]
+addopts = "--strict-markers"
+testpaths = ["tests"]
