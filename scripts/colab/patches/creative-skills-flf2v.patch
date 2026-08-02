@@ -6,12 +6,12 @@ diff --git a/drama-video/scripts/drama_video.py b/drama-video/scripts/drama_vide
      pre_gen = _generate_anchor(spec, project, idx, shot, stem)
      image_path = pre_gen or _resolve_image(spec, project, idx, shot.get("image"))
 +    last_image_path = _resolve_image(spec, project, idx, shot.get("last_image"))
- 
+
      tokens = _character_tokens(spec)
      prompt = _expand_tokens(shot["prompt"], tokens)
 @@ -369,7 +370,9 @@ def _render_shot(spec: dict, project: Path, idx: int, shot: dict) -> None:
                       "--identity-strength", f"{id_strength:.3f}"]
- 
+
 -    # Three render paths in priority order:
 -    #   1. `continue_from_prev: true` on a non-first shot → LTX continuation
 +    # Four render paths in priority order:
