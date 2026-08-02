@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from book_video.edge_audio import EdgeAudioRenderer
+import book_video.edge_audio as edge_audio
+from book_video.edge_audio import EdgeAudioRenderer, _pause_gaps
 from book_video.schema import load_project
 
 
@@ -142,3 +143,95 @@ def test_renderer_never_places_user_ids_outside_output_directory(
     with pytest.raises(ProjectValidationError, match="line"):
         load_project(path)
     assert not (tmp_path / "escape.mp3").exists()
+
+
+def test_fixed_timeline_padding_fills_the_shared_visual_slot(
+    tmp_path, valid_project_data
+):
+    import yaml
+
+    valid_project_data["scenes"][0]["duration_ms"] = 5000
+    path = tmp_path / "project.yaml"
+    path.write_text(yaml.safe_dump(valid_project_data, sort_keys=False), encoding="utf-8")
+    project = load_project(path)
+    timeline = edge_audio.build_timeline(
+        project, line_durations_ms={"line_001": 1500, "line_002": 1500}
+    )
+
+    assert _pause_gaps(timeline) == [200, 1800]
+
+
+def test_renderer_mixes_scene_ambience_under_brian_narration(
+    tmp_path, valid_project_data, monkeypatch
+):
+    import yaml
+
+    valid_project_data["speakers"] = {
+        "narrator": {"voice": "en-US-BrianMultilingualNeural"}
+    }
+    valid_project_data["scenes"][0]["lines"] = [
+        {
+            "id": "line_001",
+            "speaker": "narrator",
+            "text": "Call me Ishmael.",
+            "pause_after_ms": 0,
+        }
+    ]
+    valid_project_data["scenes"][0].update(
+        {
+            "duration_ms": 5000,
+            "ambience": {
+                "file": "assets/harbor.mp3",
+                "description": "Distant harbor water.",
+                "gain_db": -24,
+            },
+        }
+    )
+    assets = tmp_path / "assets"
+    assets.mkdir()
+    (assets / "harbor.mp3").write_bytes(b"ambience")
+    path = tmp_path / "project.yaml"
+    path.write_text(yaml.safe_dump(valid_project_data, sort_keys=False), encoding="utf-8")
+    project = load_project(path)
+    calls = []
+
+    def fake_mix(*, narration, output, project, timeline, project_root):
+        calls.append((narration, output, project, timeline, project_root))
+        output.write_bytes(b"mixed")
+
+    monkeypatch.setattr(edge_audio, "_mix_ambience", fake_mix)
+
+    artifacts = EdgeAudioRenderer(backend=RecordingBackend()).render(
+        project=project,
+        output_dir=tmp_path / "audio",
+        project_root=tmp_path,
+    )
+
+    assert artifacts.master_audio_path.read_bytes() == b"mixed"
+    assert len(calls) == 1
+    assert calls[0][3].duration_ms == 5000
+    assert calls[0][4] == tmp_path
+
+
+def test_failed_prepare_does_not_leave_a_stale_master_audio(
+    tmp_path, valid_project_data
+):
+    import pytest
+    import yaml
+
+    valid_project_data["scenes"][0]["duration_ms"] = 1000
+    project_path = tmp_path / "project.yaml"
+    project_path.write_text(
+        yaml.safe_dump(valid_project_data, sort_keys=False), encoding="utf-8"
+    )
+    output = tmp_path / "audio"
+    output.mkdir()
+    stale_master = output / "master.mp3"
+    stale_master.write_bytes(b"stale-success")
+
+    with pytest.raises(ValueError, match="overflow"):
+        EdgeAudioRenderer(backend=RecordingBackend()).render(
+            project=load_project(project_path), output_dir=output
+        )
+
+    assert not stale_master.exists()

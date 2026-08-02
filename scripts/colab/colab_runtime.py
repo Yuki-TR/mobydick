@@ -207,6 +207,26 @@ def install_requirements(repository: dict[str, Any], path: Path) -> None:
         run([sys.executable, "-m", "pip", "install", "-e", str(path)])
 
 
+def apply_repository_patches(repository: dict[str, Any], path: Path) -> None:
+    project_root = Path(__file__).resolve().parents[2]
+    for relative in repository.get("patches", []):
+        patch_path = safe_destination(project_root, str(relative))
+        if not patch_path.is_file():
+            raise ConfigError(f"Repository patch not found: {patch_path}")
+        reverse_check = subprocess.run(
+            ["git", "apply", "--reverse", "--check", str(patch_path)],
+            cwd=path,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        if reverse_check.returncode == 0:
+            print(f"SKIP already applied patch: {patch_path.name}")
+            continue
+        run(["git", "apply", "--check", str(patch_path)], path)
+        run(["git", "apply", str(patch_path)], path)
+
+
 def sha256_file(path: Path, block_size: int = 8 * 1024 * 1024) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -431,6 +451,7 @@ def install(manifest: dict[str, Any]) -> None:
         run([sys.executable, "-m", "pip", "install", *packages])
     for repository in manifest["repositories"]:
         path = clone_pinned(repository, root)
+        apply_repository_patches(repository, path)
         install_requirements(repository, path)
     for node in manifest.get("custom_nodes", []):
         path = clone_pinned(node, root)

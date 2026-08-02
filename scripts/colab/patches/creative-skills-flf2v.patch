@@ -1,0 +1,40 @@
+diff --git a/drama-video/scripts/drama_video.py b/drama-video/scripts/drama_video.py
+--- a/drama-video/scripts/drama_video.py
++++ b/drama-video/scripts/drama_video.py
+@@ -322,6 +322,7 @@ def _render_shot(spec: dict, project: Path, idx: int, shot: dict) -> None:
+     # Prefer a scene-specific pre-gen anchor when set.
+     pre_gen = _generate_anchor(spec, project, idx, shot, stem)
+     image_path = pre_gen or _resolve_image(spec, project, idx, shot.get("image"))
++    last_image_path = _resolve_image(spec, project, idx, shot.get("last_image"))
+ 
+     tokens = _character_tokens(spec)
+     prompt = _expand_tokens(shot["prompt"], tokens)
+@@ -369,7 +370,9 @@ def _render_shot(spec: dict, project: Path, idx: int, shot: dict) -> None:
+                      "--identity-strength", f"{id_strength:.3f}"]
+ 
+-    # Three render paths in priority order:
+-    #   1. `continue_from_prev: true` on a non-first shot → LTX continuation
++    # Four render paths in priority order:
++    #   1. Explicit `last_image` with a start image → audio-conditioned FLF2V.
++    #      This pins both boundaries and is the most deterministic story path.
++    #   2. `continue_from_prev: true` on a non-first shot → LTX continuation
+     #      (locks first N frames of this shot to the last N of prev.mp4).
+     #      Seamless cut, no separate anchor needed.
+     #   2. `image: "@last"` or no image + not first shot → classic ia2v
+@@ -387,8 +390,15 @@ def _render_shot(spec: dict, project: Path, idx: int, shot: dict) -> None:
+     # Drama is dialogue-first, so use this only for shots that don't need on-screen
+     # speech (B-roll, establishing, inserts); identity comes from the sheet, not the
+     # identity-anchor. The full audio track is muxed over the timeline at assemble.
+     shot_mode = shot.get("mode") or (spec.get("video") or {}).get("mode")
+-    if shot_mode == "ingredients":
++    if last_image_path:
++        if image_path is None:
++            sys.exit(f"shot {idx}: last_image requires an image/first frame")
++        cmd = ["python3", str(COMFY), "flf2v",
++               "--first", image_path,
++               "--last", last_image_path,
++               "--audio", str(slice_mp3)] + common
++    elif shot_mode == "ingredients":
+         sheet = shot.get("reference_sheet") or spec.get("reference_sheet")
+         if not sheet:
+             sys.exit(f"shot {idx}: mode=ingredients needs `reference_sheet:` "

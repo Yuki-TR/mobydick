@@ -67,3 +67,36 @@ def test_build_timeline_rejects_incomplete_or_invalid_duration_maps(
 
     with pytest.raises(TimelineError, match="duration"):
         build_timeline(project, line_durations_ms=durations)
+
+
+def test_fixed_scene_slots_keep_visual_timing_independent_of_narration(
+    tmp_path, valid_project_data
+):
+    project = _load_changed_project(
+        tmp_path,
+        valid_project_data,
+        lambda data: data["scenes"][0].update({"duration_ms": 5000}),
+    )
+
+    timeline = build_timeline(
+        project, line_durations_ms={"line_001": 1500, "line_002": 1500}
+    )
+
+    assert [(cue.start_ms, cue.end_ms) for cue in timeline.cues] == [
+        (0, 1500),
+        (1700, 3200),
+    ]
+    assert timeline.duration_ms == 5000
+
+
+def test_fixed_scene_slot_rejects_narration_overflow(tmp_path, valid_project_data):
+    project = _load_changed_project(
+        tmp_path,
+        valid_project_data,
+        lambda data: data["scenes"][0].update({"duration_ms": 2500}),
+    )
+
+    with pytest.raises(TimelineError, match=r"workshop.*overflow|overflow.*workshop"):
+        build_timeline(
+            project, line_durations_ms={"line_001": 1500, "line_002": 1500}
+        )

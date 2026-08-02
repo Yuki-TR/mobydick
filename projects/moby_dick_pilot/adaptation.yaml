@@ -1,0 +1,701 @@
+version: 1
+
+adaptation:
+  id: moby_dick_loomings
+  title: "Moby-Dick — Loomings"
+  language: en-US
+  source_file: source_excerpt.txt
+  default_mode: faithful
+  target_duration_sec: 300
+
+output:
+  width: 1920
+  height: 1080
+  fps: 24
+
+narrator:
+  id: ishmael
+  voice: en-US-BrianMultilingualNeural
+  rate: "+0%"
+  volume: "+0%"
+  pitch: "+0Hz"
+
+policy:
+  narration_only: true
+  forbid_future_knowledge: true
+
+scenes:
+  - id: call_me_ishmael
+    title: Call Me Ishmael
+    image: assets/keyframes/001_street.png
+    end_image: assets/keyframes/002_coffin.png
+    duration_ms: 14000
+    motion_prompt: >-
+      Rear three-quarter view of Ishmael walking alone down a wet 1840s lower
+      Manhattan street toward the harbor, fine November rain, restrained slow
+      dolly forward, natural coat movement, stable face, mouth closed, no
+      visible speech, photorealistic historical drama, no text.
+    source_refs:
+      - paragraph: p001
+        quote: Call me Ishmael.
+      - paragraph: p001
+        quote: I thought I would sail about a little and see the watery part of the world.
+    interpretations:
+      - kind: production_choice
+        detail: Ishmael is a weathered man in his early thirties wearing a charcoal greatcoat.
+    ambience: &rain_ambience
+      description: Fine rain, distant carriage wheels, and a faint harbor wind.
+      file: assets/ambience/rainy_city.wav
+      gain_db: -26
+    narration:
+      faithful: >-
+        Call me Ishmael. I thought I would sail about a little and see the
+        watery part of the world.
+      modern: >-
+        Call me Ishmael. Years ago, with little money and nothing keeping me on
+        shore, I decided to sail and see the watery part of the world.
+      pause_after_ms: 250
+
+  - id: november_in_the_soul
+    title: November in the Soul
+    image: assets/keyframes/002_coffin.png
+    end_image: assets/keyframes/003_harbor_choice.png
+    duration_ms: 14000
+    motion_prompt: >-
+      Close profile of Ishmael paused beneath dripping eaves as a funeral cart
+      passes in soft focus, cold gray dawn, subtle breath and rain motion,
+      inward melancholy, mouth closed, no visible speech, stable anatomy,
+      photorealistic 35mm period film, no text.
+    source_refs:
+      - paragraph: p001
+        quote: >-
+          Whenever I find myself growing grim about the mouth; whenever it is a
+          damp, drizzly November in my soul; whenever I find myself
+          involuntarily pausing before coffin warehouses,
+    interpretations:
+      - kind: explicit
+        detail: The visual combines the drizzly mood and coffin-warehouse image stated by Ishmael.
+    ambience: *rain_ambience
+    narration:
+      faithful: >-
+        Whenever I find myself growing grim about the mouth; whenever it is a
+        damp, drizzly November in my soul; whenever I find myself
+        involuntarily pausing before coffin warehouses,
+      modern: >-
+        Whenever my expression turns grim, whenever my soul feels like a wet
+        November, and my thoughts drift toward death, I know the darkness is
+        returning.
+      pause_after_ms: 300
+
+  - id: substitute_for_pistol
+    title: The Quiet Remedy
+    image: assets/keyframes/003_harbor_choice.png
+    end_image: assets/keyframes/004_manhattan.png
+    duration_ms: 14000
+    motion_prompt: >-
+      Ishmael reaches the end of the street and the harbor opens before him;
+      his posture steadies as rigging appears through rain, gentle camera arc
+      from city to sea, mouth closed, no visible speech, historically accurate
+      1840s clothing, restrained realism, no text.
+    source_refs:
+      - paragraph: p001
+        quote: >-
+          then, I account it high time to get to sea as soon as I can. This is
+          my substitute for pistol and ball.
+      - paragraph: p001
+        quote: I quietly take to the ship.
+    interpretations:
+      - kind: inferred
+        detail: His posture becoming steadier visualizes the sea as a remedy without adding an event.
+    ambience: *rain_ambience
+    narration:
+      faithful: >-
+        then, I account it high time to get to sea as soon as I can. This is my
+        substitute for pistol and ball. I quietly take to the ship.
+      modern: >-
+        Then I know it is time to get to sea. Sailing is the remedy that keeps
+        me alive. I do not make a spectacle of it; I quietly join a ship.
+      pause_after_ms: 250
+
+  - id: insular_city
+    title: The Island City
+    image: assets/keyframes/004_manhattan.png
+    end_image: assets/keyframes/005_sentinels.png
+    duration_ms: 14000
+    motion_prompt: >-
+      High wide view of 1840s Manhattan encircled by timber wharves and sailing
+      ships, streets descending toward water on both sides, slow aerial-like
+      crane movement grounded in period realism, distant people with mouths
+      closed, no visible speech, no modern skyline, no text.
+    source_refs:
+      - paragraph: p002
+        quote: >-
+          There now is your insular city of the Manhattoes, belted round by
+          wharves as Indian isles by coral reefs—commerce surrounds it with her
+          surf. Right and left, the streets take you waterward.
+    interpretations:
+      - kind: explicit
+        detail: Manhattan, its wharves, commerce, and waterward streets are directly described.
+    ambience: &harbor_ambience
+      description: Harbor water, distant rigging, gulls, and restrained dock activity.
+      file: assets/ambience/harbor.wav
+      gain_db: -27
+    narration:
+      faithful: >-
+        There now is your insular city of the Manhattoes, belted round by
+        wharves as Indian isles by coral reefs—commerce surrounds it with her
+        surf. Right and left, the streets take you waterward.
+      modern: >-
+        Manhattan is an island city ringed by wharves as reefs ring an island.
+        Commerce breaks around it, and streets on either side lead toward the
+        water.
+      pause_after_ms: 250
+
+  - id: silent_sentinels
+    title: Silent Sentinels
+    image: assets/keyframes/005_sentinels.png
+    end_image: assets/keyframes/006_landsmen.png
+    duration_ms: 14000
+    motion_prompt: >-
+      A dreamy Sabbath crowd stands along Battery piers like silent sentinels,
+      men leaning on pilings and staring seaward while coats stir in the salt
+      breeze, very slow lateral drift, stable faces, mouths closed, no visible
+      speech, photorealistic 1840s New York, no text.
+    source_refs:
+      - paragraph: p003
+        quote: >-
+          What do you see?—Posted like silent sentinels all around the town,
+          stand thousands upon thousands of mortal men fixed in ocean reveries.
+    interpretations:
+      - kind: explicit
+        detail: The locations, Sabbath mood, crowds, and sentinel comparison come from the paragraph.
+    ambience: *harbor_ambience
+    narration:
+      faithful: >-
+        What do you see?—Posted like silent sentinels all around the town,
+        stand thousands upon thousands of mortal men fixed in ocean reveries.
+      modern: >-
+        Walk around the city on a dreamy Sunday afternoon. Everywhere, crowds
+        stand like silent guards, their bodies in Manhattan but their thoughts
+        fixed far out at sea.
+      pause_after_ms: 200
+
+  - id: landsmen_at_the_edge
+    title: Landsmen at the Edge
+    image: assets/keyframes/006_landsmen.png
+    end_image: assets/keyframes/007_edge.png
+    duration_ms: 14000
+    motion_prompt: >-
+      Clerks and craftsmen in worn period coats leave cramped workshops and
+      desks behind, gathering at the extreme edge of a timber pier, hands on
+      rails, restrained dolly toward the water, mouths closed, no visible
+      speech, natural crowd motion, historical realism, no text.
+    source_refs:
+      - paragraph: p003
+        quote: >-
+          But these are all landsmen; of week days pent up in lath and
+          plaster—tied to counters, nailed to benches, clinched to desks. How
+          then is this? Are the green fields gone? What do they here?
+    interpretations:
+      - kind: inferred
+        detail: The men leaving workspaces for the pier joins details stated in the same paragraph.
+    ambience: *harbor_ambience
+    narration:
+      faithful: >-
+        But these are all landsmen; of week days pent up in lath and
+        plaster—tied to counters, nailed to benches, clinched to desks. How
+        then is this? Are the green fields gone? What do they here?
+      modern: >-
+        These are landsmen, trapped all week behind counters, benches, and
+        desks. Yet on their free day they ignore the fields and gather at the
+        city’s watery edge.
+      pause_after_ms: 250
+
+  - id: extremest_limit
+    title: The Extremest Limit
+    image: assets/keyframes/007_edge.png
+    end_image: assets/keyframes/008_compass.png
+    duration_ms: 14000
+    motion_prompt: >-
+      More people stream from narrow Manhattan lanes toward the Battery and
+      stop at the last safe plank above the tide, converging movement followed
+      by stillness, subtle camera push, stable faces, mouths closed, no visible
+      speech, authentic 1840s harbor, no text.
+    source_refs:
+      - paragraph: p004
+        quote: >-
+          But look! here come more crowds, pacing straight for the water, and
+          seemingly bound for a dive. Strange! Nothing will content them but
+          the extremest limit of the land;
+    interpretations:
+      - kind: explicit
+        detail: The crowd and its movement toward the furthest edge of land are explicit.
+    ambience: *harbor_ambience
+    narration:
+      faithful: >-
+        But look! here come more crowds, pacing straight for the water, and
+        seemingly bound for a dive. Strange! Nothing will content them but the
+        extremest limit of the land;
+      modern: >-
+        Look—more people are walking straight toward the water, almost as if
+        they mean to dive. Nothing satisfies them except the furthest edge of
+        solid land.
+      pause_after_ms: 300
+
+  - id: magnetic_water
+    title: The Magnetic Pull
+    image: assets/keyframes/008_compass.png
+    end_image: assets/keyframes/009_country.png
+    duration_ms: 14000
+    motion_prompt: >-
+      From behind the silent crowd, ship compasses and taut rigging frame the
+      open harbor as every gaze points toward the horizon, slow magnetic-feeling
+      dolly forward without fantasy effects, mouths closed, no visible speech,
+      photorealistic period detail, no text.
+    source_refs:
+      - paragraph: p004
+        quote: >-
+          Inlanders all, they come from lanes and alleys, streets and
+          avenues—north, east, south, and west. Yet here they all unite.
+    interpretations:
+      - kind: inferred
+        detail: Compass and rigging foreground the paragraph's metaphor without making magnetism literal.
+    ambience: *harbor_ambience
+    narration:
+      faithful: >-
+        Inlanders all, they come from lanes and alleys, streets and
+        avenues—north, east, south, and west. Yet here they all unite.
+      modern: >-
+        They come from every inland street and direction, yet all meet here.
+        Is some hidden force in the ships’ compasses drawing every one of them
+        toward the sea?
+      pause_after_ms: 200
+
+  - id: path_to_water
+    title: Every Path Finds Water
+    image: assets/keyframes/009_country.png
+    end_image: assets/keyframes/010_reflection.png
+    duration_ms: 14000
+    motion_prompt: >-
+      A solitary thoughtful traveler follows a winding path down from green
+      high country toward a still pool in a stream, leaves and water moving
+      gently, slow descending camera glide, mouth closed, no visible speech,
+      natural nineteenth-century landscape, no text.
+    source_refs:
+      - paragraph: p005
+        quote: >-
+          Take almost any path you please, and ten to one it carries you down
+          in a dale, and leaves you there by a pool in the stream. There is
+          magic in it.
+    interpretations:
+      - kind: explicit
+        detail: The high country, path, dale, pool, and stream are directly described.
+    ambience: &stream_ambience
+      description: A quiet stream, light leaves, distant birds, and soft open-country wind.
+      file: assets/ambience/stream.wav
+      gain_db: -27
+    narration:
+      faithful: >-
+        Take almost any path you please, and ten to one it carries you down in
+        a dale, and leaves you there by a pool in the stream. There is magic in
+        it.
+      modern: >-
+        Imagine yourself in high country filled with lakes. Choose almost any
+        path and it will lead downhill to a pool or stream. There is something
+        magical in that pull.
+      pause_after_ms: 200
+
+  - id: meditation_and_water
+    title: Meditation and Water
+    image: assets/keyframes/010_reflection.png
+    end_image: assets/keyframes/011_saco.png
+    duration_ms: 14000
+    motion_prompt: >-
+      The traveler stops beside the stream and watches his reflection ripple
+      while the camera eases from his still figure to flowing water, calm
+      contemplative light, mouth closed, no visible speech, grounded realism,
+      no supernatural effects, no text.
+    source_refs:
+      - paragraph: p005
+        quote: >-
+          Yes, as every one knows, meditation and water are wedded for ever.
+      - paragraph: p006
+        quote: >-
+          What is the chief element he employs?
+    interpretations:
+      - kind: inferred
+        detail: The traveler watching his reflection gives a visual bridge between meditation and landscape painting.
+    ambience: *stream_ambience
+    narration:
+      faithful: >-
+        Yes, as every one knows, meditation and water are wedded for ever. What
+        is the chief element he employs?
+      modern: >-
+        Meditation and water seem permanently joined. Picture an artist trying
+        to create the calmest, most enchanting landscape in the Saco valley.
+        What must the painting contain?
+      pause_after_ms: 200
+
+  - id: magic_stream
+    title: The Essential Stream
+    image: assets/keyframes/011_saco.png
+    end_image: assets/keyframes/012_prairie.png
+    duration_ms: 14000
+    motion_prompt: >-
+      A painter studies a tranquil Saco valley of meadow, cattle, cottage smoke,
+      pine trees, blue mountain spurs, and one bright winding stream, gentle
+      parallax through the landscape, mouth closed, no visible speech,
+      photorealistic romantic-period composition, no text.
+    source_refs:
+      - paragraph: p006
+        quote: >-
+          yet all were vain, unless the shepherd’s eye were fixed upon the
+          magic stream before him.
+    interpretations:
+      - kind: explicit
+        detail: The landscape elements and the shepherd's focus on the stream are drawn from the passage.
+    ambience: *stream_ambience
+    narration:
+      faithful: >-
+        yet all were vain, unless the shepherd’s eye were fixed upon the magic
+        stream before him.
+      modern: >-
+        A winding road disappears into woods and blue mountains. The meadow,
+        trees, cattle, and smoke may be perfect, yet the whole picture fails
+        unless someone is watching the stream.
+      pause_after_ms: 150
+
+  - id: the_missing_charm
+    title: The Missing Charm
+    image: assets/keyframes/012_prairie.png
+    end_image: assets/keyframes/013_narcissus.png
+    duration_ms: 14000
+    motion_prompt: >-
+      Vast June prairie filled with tiger lilies shifts in dry wind, then a
+      restrained visual dissolve suggests Niagara turned to falling sand,
+      natural scale and color, no fantasy glow, mouths closed, no visible
+      speech, nineteenth-century travel-film realism, no text.
+    source_refs:
+      - paragraph: p006
+        quote: >-
+          what is the one charm
+          wanting?—Water—there is not a drop of water there! Were Niagara but a
+          cataract of sand, would you travel your thousand miles to see it?
+    interpretations:
+      - kind: explicit
+        detail: Prairie flowers and the hypothetical sand cataract both come directly from the passage.
+    ambience: *stream_ambience
+    narration:
+      faithful: >-
+        what is the one charm wanting?—Water—there is not a drop of water there!
+        Were Niagara but a cataract of sand, would you travel your thousand
+        miles to see it?
+      modern: >-
+        Cross miles of prairie flowers and one essential beauty is still
+        missing: water. If Niagara were only a mountain of falling sand, would
+        anyone travel so far to see it?
+      pause_after_ms: 150
+
+  - id: phantom_of_life
+    title: The Ungraspable Image
+    image: assets/keyframes/013_narcissus.png
+    end_image: assets/keyframes/014_quay.png
+    duration_ms: 14000
+    motion_prompt: >-
+      A restrained classical vision of Narcissus kneeling over a forest pool,
+      his reflection breaking into ripples that become an open ocean surface,
+      slow overhead drift, symbolic but physically grounded, mouth closed, no
+      visible speech, no drowning shown, no text.
+    source_refs:
+      - paragraph: p006
+        quote: >-
+          But that same image, we ourselves see in all rivers and oceans. It is
+          the image of the ungraspable phantom of life; and this is the key to
+          it all.
+    interpretations:
+      - kind: explicit
+        detail: Narcissus and the reflection as life's ungraspable phantom are stated in the source.
+    ambience: *stream_ambience
+    narration:
+      faithful: >-
+        But that same image, we ourselves see in all rivers and oceans. It is
+        the image of the ungraspable phantom of life; and this is the key to it
+        all.
+      modern: >-
+        Narcissus drowned trying to grasp his own image in a pool. We see that
+        same unreachable image in every river and ocean: the mysterious shape
+        of life itself.
+      pause_after_ms: 150
+
+  - id: never_a_passenger
+    title: Never a Passenger
+    image: assets/keyframes/014_quay.png
+    end_image: assets/keyframes/015_forecastle.png
+    duration_ms: 14000
+    motion_prompt: >-
+      Ishmael stands on a crowded packet-ship quay while wealthy passengers pay
+      for trunks and cabins; he turns instead toward the working forecastle of
+      a merchant vessel, subtle tracking movement, mouth closed, no visible
+      speech, authentic 1840s harbor, no text.
+    source_refs:
+      - paragraph: p007
+        quote: >-
+          For to go as a passenger you must needs have a purse, and a purse is
+          but a rag unless you have something in it.
+    interpretations:
+      - kind: inferred
+        detail: Contrasting paying passengers with Ishmael's chosen working deck visualizes his stated distinction.
+    ambience: &deck_ambience
+      description: Open-sea wind, timber hull creaks, rigging, and low waves against the bow.
+      file: assets/ambience/ship_deck.wav
+      gain_db: -25
+    narration:
+      faithful: >-
+        For to go as a passenger you must needs have a purse, and a purse is but
+        a rag unless you have something in it.
+      modern: >-
+        Do not imagine that I travel as a passenger. A passenger needs a purse,
+        and an empty purse is only a useless piece of cloth. I go to work.
+      pause_after_ms: 250
+
+  - id: before_the_mast
+    title: Before the Mast
+    image: assets/keyframes/015_forecastle.png
+    end_image: assets/keyframes/016_sweeping.png
+    duration_ms: 13000
+    motion_prompt: >-
+      Ishmael works before the mast on a wet 1840s sailing ship, hauling coarse
+      rope and climbing from spar to spar with ordinary sailors, grounded
+      physical movement, subtle handheld push, mouth closed, no visible speech,
+      stable anatomy, photorealistic period film, no text.
+    source_refs:
+      - paragraph: p008
+        quote: >-
+          No, when I go to sea, I go as a simple sailor, right before the mast,
+          plumb down into the forecastle, aloft there to the royal mast-head.
+    interpretations:
+      - kind: explicit
+        detail: Ishmael's rank, location, orders, and movement among the spars are directly described.
+    ambience: *deck_ambience
+    narration:
+      faithful: >-
+        No, when I go to sea, I go as a simple sailor, right before the mast,
+        plumb down into the forecastle, aloft there to the royal mast-head.
+      modern: >-
+        When I go to sea, I sign on as an ordinary sailor before the mast. The
+        officers order me around and send me climbing through the rigging like
+        a grasshopper.
+      pause_after_ms: 150
+
+  - id: who_is_not_a_slave
+    title: Who Is Not a Slave?
+    image: assets/keyframes/016_sweeping.png
+    end_image: assets/keyframes/017_paid.png
+    duration_ms: 13000
+    motion_prompt: >-
+      On the forecastle Ishmael calmly sweeps rainwater from the planks while an
+      old captain gestures an order from above; other sailors labor around him,
+      slow level camera, no humiliation caricature, mouth closed, no visible
+      speech, historical realism, no text.
+    source_refs:
+      - paragraph: p009
+        quote: >-
+          What of it, if some old hunks of a sea-captain orders me to get a
+          broom and sweep down the decks?
+      - paragraph: p009
+        quote: Who ain’t a slave? Tell me that.
+    interpretations:
+      - kind: explicit
+        detail: Sweeping under a captain's order is the example Ishmael gives.
+    ambience: *deck_ambience
+    narration:
+      faithful: >-
+        What of it, if some old hunks of a sea-captain orders me to get a broom
+        and sweep down the decks? Who ain’t a slave? Tell me that.
+      modern: >-
+        So what if an old captain orders me to sweep the deck? How great is
+        that humiliation in the larger scale of things? Everyone serves someone
+        or something.
+      pause_after_ms: 200
+
+  - id: being_paid
+    title: The Pleasure of Being Paid
+    image: assets/keyframes/017_paid.png
+    end_image: assets/keyframes/018_pure_air.png
+    duration_ms: 13000
+    motion_prompt: >-
+      A ship's purser places a few coins into Ishmael's weathered palm while
+      passengers surrender payment in the background, Ishmael hides a slight
+      amused smile, close detail to wider deck, mouth closed, no visible speech,
+      authentic objects and clothing, no text.
+    source_refs:
+      - paragraph: p010
+        quote: >-
+          Again, I always go to sea as a sailor, because they make a point of
+          paying me for my trouble, whereas they never pay passengers a single
+          penny that I ever heard of.
+    interpretations:
+      - kind: explicit
+        detail: Coins visualize the source's contrast between sailors being paid and passengers paying.
+    ambience: *deck_ambience
+    narration:
+      faithful: >-
+        Again, I always go to sea as a sailor, because they make a point of
+        paying me for my trouble, whereas they never pay passengers a single
+        penny that I ever heard of.
+      modern: >-
+        I also sail as a worker because they pay me. Passengers receive nothing;
+        they must hand over their own money. That is the enormous difference
+        between paying and being paid.
+      pause_after_ms: 150
+
+  - id: pure_air
+    title: Pure Air of the Forecastle
+    image: assets/keyframes/018_pure_air.png
+    end_image: assets/keyframes/019_whaler.png
+    duration_ms: 13000
+    motion_prompt: >-
+      Dawn breaks over the forecastle as Ishmael and common sailors breathe the
+      clean headwind before it reaches officers on the quarterdeck, canvas
+      fills and sea spray crosses the rail, slow forward glide, mouths closed,
+      no visible speech, photorealistic maritime realism, no text.
+    source_refs:
+      - paragraph: p011
+        quote: >-
+          Finally, I always go to sea as a sailor, because of the wholesome
+          exercise and pure air of the fore-castle deck.
+    interpretations:
+      - kind: explicit
+        detail: Exercise, pure forecastle air, and headwinds are stated directly.
+    ambience: *deck_ambience
+    narration:
+      faithful: >-
+        Finally, I always go to sea as a sailor, because of the wholesome
+        exercise and pure air of the fore-castle deck.
+      modern: >-
+        Finally, the forecastle offers hard exercise and clean air. Headwinds
+        are more common than winds from behind, but the ordinary sailors meet
+        that fresh air first.
+      pause_after_ms: 300
+
+  - id: fates_programme
+    title: The Programme of Fate
+    image: assets/keyframes/019_whaler.png
+    end_image: assets/keyframes/020_forbidden.png
+    duration_ms: 13000
+    motion_prompt: >-
+      Ishmael studies a whaling ship being provisioned at dusk as workers roll
+      barrels and coil lines; rigging shadows cross him like the bars of an
+      unseen design, restrained slow orbit, mouth closed, no visible speech,
+      no literal supernatural figure, historical realism, no text.
+    source_refs:
+      - paragraph: p011
+        quote: >-
+          this the invisible police officer of the Fates, who has the constant
+          surveillance of me, and secretly dogs me,
+    interpretations:
+      - kind: inferred
+        detail: Rigging shadows suggest fate while avoiding a literal new character.
+    ambience: *deck_ambience
+    narration:
+      faithful: >-
+        this the invisible police officer of the Fates, who has the constant
+        surveillance of me, and secretly dogs me,
+      modern: >-
+        Why did years as a merchant sailor suddenly lead me toward a whaling
+        voyage? Perhaps only the invisible officer of Fate, quietly following
+        and influencing me, could answer.
+      pause_after_ms: 100
+
+  - id: great_whale
+    title: The Great Whale
+    image: assets/keyframes/020_forbidden.png
+    end_image: assets/keyframes/021_phantom.png
+    duration_ms: 13000
+    motion_prompt: >-
+      From behind Ishmael on a whaler's bow, an immense distant sperm whale
+      rolls its island-like back through dark water beneath low fog, restrained
+      awe rather than attack, slow ominous dolly, physically believable scale,
+      mouth closed, no visible speech, no fantasy glow, no text.
+    source_refs:
+      - paragraph: p014
+        quote: >-
+          Chief among these motives was the overwhelming idea of the great
+          whale himself. Such a portentous and mysterious monster roused all my
+          curiosity.
+    interpretations:
+      - kind: explicit
+        detail: The whale, its mystery, distant seas, island bulk, and danger are directly described.
+    ambience: &night_ambience
+      description: Deep night ocean, low wind, hull groans, and a distant whale exhalation.
+      file: assets/ambience/night_sea.wav
+      gain_db: -24
+    narration:
+      faithful: >-
+        Chief among these motives was the overwhelming idea of the great whale
+        himself. Such a portentous and mysterious monster roused all my
+        curiosity.
+      modern: >-
+        Strongest of all was the idea of the great whale. Its mystery awakened
+        my curiosity, along with the distant seas, its island-sized body, and
+        dangers no one could name.
+      pause_after_ms: 200
+
+  - id: forbidden_seas
+    title: Forbidden Seas
+    image: assets/keyframes/021_phantom.png
+    end_image: assets/keyframes/022_forbidden_seas.png
+    duration_ms: 13000
+    motion_prompt: >-
+      The whaling ship leaves the last harbor light and enters a vast unfamiliar
+      ocean, Ishmael small at the bow as dark headlands recede, slow widening
+      camera, restrained anticipation, mouth closed, no visible speech,
+      photorealistic nineteenth-century voyage, no text.
+    source_refs:
+      - paragraph: p014
+        quote: >-
+          as for me, I am tormented with an everlasting itch for things remote.
+          I love to sail forbidden seas, and land on barbarous coasts.
+    interpretations:
+      - kind: explicit
+        detail: The departure visualizes Ishmael's stated attraction to remote seas and coasts.
+    ambience: *night_ambience
+    narration:
+      faithful: >-
+        as for me, I am tormented with an everlasting itch for things remote. I
+        love to sail forbidden seas, and land on barbarous coasts.
+      modern: >-
+        I have always been restless for distant things. I want to sail into
+        forbidden seas and reach coasts beyond the familiar limits of my world.
+      pause_after_ms: 300
+
+  - id: wonder_world
+    title: The Wonder-World Opens
+    image: assets/keyframes/022_forbidden_seas.png
+    end_image: assets/keyframes/023_wonder_world.png
+    duration_ms: 13000
+    motion_prompt: >-
+      Moonlit fog opens ahead of Ishmael's ship into an immense ocean vista;
+      several distant whale backs surface in procession and one pale whale
+      emerges like a snow hill, slow final push toward mystery, mouth closed,
+      no visible speech, physically believable water, no attack, no text.
+    source_refs:
+      - paragraph: p015
+        quote: >-
+          the great flood-gates of the wonder-world swung open,
+      - paragraph: p015
+        quote: >-
+          one grand hooded phantom, like a snow hill in the air.
+    interpretations:
+      - kind: explicit
+        detail: The whale procession and hooded snow-hill phantom are the chapter's closing vision.
+    ambience: *night_ambience
+    narration:
+      faithful: >-
+        the great flood-gates of the wonder-world swung open, one grand hooded
+        phantom, like a snow hill in the air.
+      modern: >-
+        So I welcomed the whaling voyage. The gates of a world of wonder opened
+        before me: endless whales moving through my imagination, and above them
+        one vast pale phantom like a hill of snow.
+      pause_after_ms: 100

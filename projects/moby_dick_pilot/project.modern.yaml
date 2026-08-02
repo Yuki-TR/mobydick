@@ -1,0 +1,458 @@
+version: 1
+project:
+  id: moby_dick_loomings_modern
+  title: Moby-Dick — Loomings (modern)
+  language: en-US
+output:
+  width: 1920
+  height: 1080
+  fps: 24
+speakers:
+  ishmael:
+    voice: en-US-BrianMultilingualNeural
+    rate: +0%
+    volume: +0%
+    pitch: +0Hz
+scenes:
+- id: call_me_ishmael
+  title: Call Me Ishmael
+  image: assets/keyframes/001_street.png
+  end_image: assets/keyframes/002_coffin.png
+  motion_prompt: Rear three-quarter view of Ishmael walking alone down a wet 1840s
+    lower Manhattan street toward the harbor, fine November rain, restrained slow
+    dolly forward, natural coat movement, stable face, mouth closed, no visible speech,
+    photorealistic historical drama, no text.
+  duration_ms: 14000
+  ambience:
+    file: assets/ambience/rainy_city.wav
+    description: Fine rain, distant carriage wheels, and a faint harbor wind.
+    gain_db: -26.0
+  lines:
+  - id: call_me_ishmael_modern
+    speaker: ishmael
+    text: Call me Ishmael. Years ago, with little money and nothing keeping me on
+      shore, I decided to sail and see the watery part of the world.
+    pause_after_ms: 250
+- id: november_in_the_soul
+  title: November in the Soul
+  image: assets/keyframes/002_coffin.png
+  end_image: assets/keyframes/003_harbor_choice.png
+  motion_prompt: Close profile of Ishmael paused beneath dripping eaves as a funeral
+    cart passes in soft focus, cold gray dawn, subtle breath and rain motion, inward
+    melancholy, mouth closed, no visible speech, stable anatomy, photorealistic 35mm
+    period film, no text.
+  duration_ms: 14000
+  ambience:
+    file: assets/ambience/rainy_city.wav
+    description: Fine rain, distant carriage wheels, and a faint harbor wind.
+    gain_db: -26.0
+  lines:
+  - id: november_in_the_soul_modern
+    speaker: ishmael
+    text: Whenever my expression turns grim, whenever my soul feels like a wet November,
+      and my thoughts drift toward death, I know the darkness is returning.
+    pause_after_ms: 300
+- id: substitute_for_pistol
+  title: The Quiet Remedy
+  image: assets/keyframes/003_harbor_choice.png
+  end_image: assets/keyframes/004_manhattan.png
+  motion_prompt: Ishmael reaches the end of the street and the harbor opens before
+    him; his posture steadies as rigging appears through rain, gentle camera arc from
+    city to sea, mouth closed, no visible speech, historically accurate 1840s clothing,
+    restrained realism, no text.
+  duration_ms: 14000
+  ambience:
+    file: assets/ambience/rainy_city.wav
+    description: Fine rain, distant carriage wheels, and a faint harbor wind.
+    gain_db: -26.0
+  lines:
+  - id: substitute_for_pistol_modern
+    speaker: ishmael
+    text: Then I know it is time to get to sea. Sailing is the remedy that keeps me
+      alive. I do not make a spectacle of it; I quietly join a ship.
+    pause_after_ms: 250
+- id: insular_city
+  title: The Island City
+  image: assets/keyframes/004_manhattan.png
+  end_image: assets/keyframes/005_sentinels.png
+  motion_prompt: High wide view of 1840s Manhattan encircled by timber wharves and
+    sailing ships, streets descending toward water on both sides, slow aerial-like
+    crane movement grounded in period realism, distant people with mouths closed,
+    no visible speech, no modern skyline, no text.
+  duration_ms: 14000
+  ambience:
+    file: assets/ambience/harbor.wav
+    description: Harbor water, distant rigging, gulls, and restrained dock activity.
+    gain_db: -27.0
+  lines:
+  - id: insular_city_modern
+    speaker: ishmael
+    text: Manhattan is an island city ringed by wharves as reefs ring an island. Commerce
+      breaks around it, and streets on either side lead toward the water.
+    pause_after_ms: 250
+- id: silent_sentinels
+  title: Silent Sentinels
+  image: assets/keyframes/005_sentinels.png
+  end_image: assets/keyframes/006_landsmen.png
+  motion_prompt: A dreamy Sabbath crowd stands along Battery piers like silent sentinels,
+    men leaning on pilings and staring seaward while coats stir in the salt breeze,
+    very slow lateral drift, stable faces, mouths closed, no visible speech, photorealistic
+    1840s New York, no text.
+  duration_ms: 14000
+  ambience:
+    file: assets/ambience/harbor.wav
+    description: Harbor water, distant rigging, gulls, and restrained dock activity.
+    gain_db: -27.0
+  lines:
+  - id: silent_sentinels_modern
+    speaker: ishmael
+    text: Walk around the city on a dreamy Sunday afternoon. Everywhere, crowds stand
+      like silent guards, their bodies in Manhattan but their thoughts fixed far out
+      at sea.
+    pause_after_ms: 200
+- id: landsmen_at_the_edge
+  title: Landsmen at the Edge
+  image: assets/keyframes/006_landsmen.png
+  end_image: assets/keyframes/007_edge.png
+  motion_prompt: Clerks and craftsmen in worn period coats leave cramped workshops
+    and desks behind, gathering at the extreme edge of a timber pier, hands on rails,
+    restrained dolly toward the water, mouths closed, no visible speech, natural crowd
+    motion, historical realism, no text.
+  duration_ms: 14000
+  ambience:
+    file: assets/ambience/harbor.wav
+    description: Harbor water, distant rigging, gulls, and restrained dock activity.
+    gain_db: -27.0
+  lines:
+  - id: landsmen_at_the_edge_modern
+    speaker: ishmael
+    text: These are landsmen, trapped all week behind counters, benches, and desks.
+      Yet on their free day they ignore the fields and gather at the city’s watery
+      edge.
+    pause_after_ms: 250
+- id: extremest_limit
+  title: The Extremest Limit
+  image: assets/keyframes/007_edge.png
+  end_image: assets/keyframes/008_compass.png
+  motion_prompt: More people stream from narrow Manhattan lanes toward the Battery
+    and stop at the last safe plank above the tide, converging movement followed by
+    stillness, subtle camera push, stable faces, mouths closed, no visible speech,
+    authentic 1840s harbor, no text.
+  duration_ms: 14000
+  ambience:
+    file: assets/ambience/harbor.wav
+    description: Harbor water, distant rigging, gulls, and restrained dock activity.
+    gain_db: -27.0
+  lines:
+  - id: extremest_limit_modern
+    speaker: ishmael
+    text: Look—more people are walking straight toward the water, almost as if they
+      mean to dive. Nothing satisfies them except the furthest edge of solid land.
+    pause_after_ms: 300
+- id: magnetic_water
+  title: The Magnetic Pull
+  image: assets/keyframes/008_compass.png
+  end_image: assets/keyframes/009_country.png
+  motion_prompt: From behind the silent crowd, ship compasses and taut rigging frame
+    the open harbor as every gaze points toward the horizon, slow magnetic-feeling
+    dolly forward without fantasy effects, mouths closed, no visible speech, photorealistic
+    period detail, no text.
+  duration_ms: 14000
+  ambience:
+    file: assets/ambience/harbor.wav
+    description: Harbor water, distant rigging, gulls, and restrained dock activity.
+    gain_db: -27.0
+  lines:
+  - id: magnetic_water_modern
+    speaker: ishmael
+    text: They come from every inland street and direction, yet all meet here. Is
+      some hidden force in the ships’ compasses drawing every one of them toward the
+      sea?
+    pause_after_ms: 200
+- id: path_to_water
+  title: Every Path Finds Water
+  image: assets/keyframes/009_country.png
+  end_image: assets/keyframes/010_reflection.png
+  motion_prompt: A solitary thoughtful traveler follows a winding path down from green
+    high country toward a still pool in a stream, leaves and water moving gently,
+    slow descending camera glide, mouth closed, no visible speech, natural nineteenth-century
+    landscape, no text.
+  duration_ms: 14000
+  ambience:
+    file: assets/ambience/stream.wav
+    description: A quiet stream, light leaves, distant birds, and soft open-country
+      wind.
+    gain_db: -27.0
+  lines:
+  - id: path_to_water_modern
+    speaker: ishmael
+    text: Imagine yourself in high country filled with lakes. Choose almost any path
+      and it will lead downhill to a pool or stream. There is something magical in
+      that pull.
+    pause_after_ms: 200
+- id: meditation_and_water
+  title: Meditation and Water
+  image: assets/keyframes/010_reflection.png
+  end_image: assets/keyframes/011_saco.png
+  motion_prompt: The traveler stops beside the stream and watches his reflection ripple
+    while the camera eases from his still figure to flowing water, calm contemplative
+    light, mouth closed, no visible speech, grounded realism, no supernatural effects,
+    no text.
+  duration_ms: 14000
+  ambience:
+    file: assets/ambience/stream.wav
+    description: A quiet stream, light leaves, distant birds, and soft open-country
+      wind.
+    gain_db: -27.0
+  lines:
+  - id: meditation_and_water_modern
+    speaker: ishmael
+    text: Meditation and water seem permanently joined. Picture an artist trying to
+      create the calmest, most enchanting landscape in the Saco valley. What must
+      the painting contain?
+    pause_after_ms: 200
+- id: magic_stream
+  title: The Essential Stream
+  image: assets/keyframes/011_saco.png
+  end_image: assets/keyframes/012_prairie.png
+  motion_prompt: A painter studies a tranquil Saco valley of meadow, cattle, cottage
+    smoke, pine trees, blue mountain spurs, and one bright winding stream, gentle
+    parallax through the landscape, mouth closed, no visible speech, photorealistic
+    romantic-period composition, no text.
+  duration_ms: 14000
+  ambience:
+    file: assets/ambience/stream.wav
+    description: A quiet stream, light leaves, distant birds, and soft open-country
+      wind.
+    gain_db: -27.0
+  lines:
+  - id: magic_stream_modern
+    speaker: ishmael
+    text: A winding road disappears into woods and blue mountains. The meadow, trees,
+      cattle, and smoke may be perfect, yet the whole picture fails unless someone
+      is watching the stream.
+    pause_after_ms: 150
+- id: the_missing_charm
+  title: The Missing Charm
+  image: assets/keyframes/012_prairie.png
+  end_image: assets/keyframes/013_narcissus.png
+  motion_prompt: Vast June prairie filled with tiger lilies shifts in dry wind, then
+    a restrained visual dissolve suggests Niagara turned to falling sand, natural
+    scale and color, no fantasy glow, mouths closed, no visible speech, nineteenth-century
+    travel-film realism, no text.
+  duration_ms: 14000
+  ambience:
+    file: assets/ambience/stream.wav
+    description: A quiet stream, light leaves, distant birds, and soft open-country
+      wind.
+    gain_db: -27.0
+  lines:
+  - id: the_missing_charm_modern
+    speaker: ishmael
+    text: 'Cross miles of prairie flowers and one essential beauty is still missing:
+      water. If Niagara were only a mountain of falling sand, would anyone travel
+      so far to see it?'
+    pause_after_ms: 150
+- id: phantom_of_life
+  title: The Ungraspable Image
+  image: assets/keyframes/013_narcissus.png
+  end_image: assets/keyframes/014_quay.png
+  motion_prompt: A restrained classical vision of Narcissus kneeling over a forest
+    pool, his reflection breaking into ripples that become an open ocean surface,
+    slow overhead drift, symbolic but physically grounded, mouth closed, no visible
+    speech, no drowning shown, no text.
+  duration_ms: 14000
+  ambience:
+    file: assets/ambience/stream.wav
+    description: A quiet stream, light leaves, distant birds, and soft open-country
+      wind.
+    gain_db: -27.0
+  lines:
+  - id: phantom_of_life_modern
+    speaker: ishmael
+    text: 'Narcissus drowned trying to grasp his own image in a pool. We see that
+      same unreachable image in every river and ocean: the mysterious shape of life
+      itself.'
+    pause_after_ms: 150
+- id: never_a_passenger
+  title: Never a Passenger
+  image: assets/keyframes/014_quay.png
+  end_image: assets/keyframes/015_forecastle.png
+  motion_prompt: Ishmael stands on a crowded packet-ship quay while wealthy passengers
+    pay for trunks and cabins; he turns instead toward the working forecastle of a
+    merchant vessel, subtle tracking movement, mouth closed, no visible speech, authentic
+    1840s harbor, no text.
+  duration_ms: 14000
+  ambience:
+    file: assets/ambience/ship_deck.wav
+    description: Open-sea wind, timber hull creaks, rigging, and low waves against
+      the bow.
+    gain_db: -25.0
+  lines:
+  - id: never_a_passenger_modern
+    speaker: ishmael
+    text: Do not imagine that I travel as a passenger. A passenger needs a purse,
+      and an empty purse is only a useless piece of cloth. I go to work.
+    pause_after_ms: 250
+- id: before_the_mast
+  title: Before the Mast
+  image: assets/keyframes/015_forecastle.png
+  end_image: assets/keyframes/016_sweeping.png
+  motion_prompt: Ishmael works before the mast on a wet 1840s sailing ship, hauling
+    coarse rope and climbing from spar to spar with ordinary sailors, grounded physical
+    movement, subtle handheld push, mouth closed, no visible speech, stable anatomy,
+    photorealistic period film, no text.
+  duration_ms: 13000
+  ambience:
+    file: assets/ambience/ship_deck.wav
+    description: Open-sea wind, timber hull creaks, rigging, and low waves against
+      the bow.
+    gain_db: -25.0
+  lines:
+  - id: before_the_mast_modern
+    speaker: ishmael
+    text: When I go to sea, I sign on as an ordinary sailor before the mast. The officers
+      order me around and send me climbing through the rigging like a grasshopper.
+    pause_after_ms: 150
+- id: who_is_not_a_slave
+  title: Who Is Not a Slave?
+  image: assets/keyframes/016_sweeping.png
+  end_image: assets/keyframes/017_paid.png
+  motion_prompt: On the forecastle Ishmael calmly sweeps rainwater from the planks
+    while an old captain gestures an order from above; other sailors labor around
+    him, slow level camera, no humiliation caricature, mouth closed, no visible speech,
+    historical realism, no text.
+  duration_ms: 13000
+  ambience:
+    file: assets/ambience/ship_deck.wav
+    description: Open-sea wind, timber hull creaks, rigging, and low waves against
+      the bow.
+    gain_db: -25.0
+  lines:
+  - id: who_is_not_a_slave_modern
+    speaker: ishmael
+    text: So what if an old captain orders me to sweep the deck? How great is that
+      humiliation in the larger scale of things? Everyone serves someone or something.
+    pause_after_ms: 200
+- id: being_paid
+  title: The Pleasure of Being Paid
+  image: assets/keyframes/017_paid.png
+  end_image: assets/keyframes/018_pure_air.png
+  motion_prompt: A ship's purser places a few coins into Ishmael's weathered palm
+    while passengers surrender payment in the background, Ishmael hides a slight amused
+    smile, close detail to wider deck, mouth closed, no visible speech, authentic
+    objects and clothing, no text.
+  duration_ms: 13000
+  ambience:
+    file: assets/ambience/ship_deck.wav
+    description: Open-sea wind, timber hull creaks, rigging, and low waves against
+      the bow.
+    gain_db: -25.0
+  lines:
+  - id: being_paid_modern
+    speaker: ishmael
+    text: I also sail as a worker because they pay me. Passengers receive nothing;
+      they must hand over their own money. That is the enormous difference between
+      paying and being paid.
+    pause_after_ms: 150
+- id: pure_air
+  title: Pure Air of the Forecastle
+  image: assets/keyframes/018_pure_air.png
+  end_image: assets/keyframes/019_whaler.png
+  motion_prompt: Dawn breaks over the forecastle as Ishmael and common sailors breathe
+    the clean headwind before it reaches officers on the quarterdeck, canvas fills
+    and sea spray crosses the rail, slow forward glide, mouths closed, no visible
+    speech, photorealistic maritime realism, no text.
+  duration_ms: 13000
+  ambience:
+    file: assets/ambience/ship_deck.wav
+    description: Open-sea wind, timber hull creaks, rigging, and low waves against
+      the bow.
+    gain_db: -25.0
+  lines:
+  - id: pure_air_modern
+    speaker: ishmael
+    text: Finally, the forecastle offers hard exercise and clean air. Headwinds are
+      more common than winds from behind, but the ordinary sailors meet that fresh
+      air first.
+    pause_after_ms: 300
+- id: fates_programme
+  title: The Programme of Fate
+  image: assets/keyframes/019_whaler.png
+  end_image: assets/keyframes/020_forbidden.png
+  motion_prompt: Ishmael studies a whaling ship being provisioned at dusk as workers
+    roll barrels and coil lines; rigging shadows cross him like the bars of an unseen
+    design, restrained slow orbit, mouth closed, no visible speech, no literal supernatural
+    figure, historical realism, no text.
+  duration_ms: 13000
+  ambience:
+    file: assets/ambience/ship_deck.wav
+    description: Open-sea wind, timber hull creaks, rigging, and low waves against
+      the bow.
+    gain_db: -25.0
+  lines:
+  - id: fates_programme_modern
+    speaker: ishmael
+    text: Why did years as a merchant sailor suddenly lead me toward a whaling voyage?
+      Perhaps only the invisible officer of Fate, quietly following and influencing
+      me, could answer.
+    pause_after_ms: 100
+- id: great_whale
+  title: The Great Whale
+  image: assets/keyframes/020_forbidden.png
+  end_image: assets/keyframes/021_phantom.png
+  motion_prompt: From behind Ishmael on a whaler's bow, an immense distant sperm whale
+    rolls its island-like back through dark water beneath low fog, restrained awe
+    rather than attack, slow ominous dolly, physically believable scale, mouth closed,
+    no visible speech, no fantasy glow, no text.
+  duration_ms: 13000
+  ambience:
+    file: assets/ambience/night_sea.wav
+    description: Deep night ocean, low wind, hull groans, and a distant whale exhalation.
+    gain_db: -24.0
+  lines:
+  - id: great_whale_modern
+    speaker: ishmael
+    text: Strongest of all was the idea of the great whale. Its mystery awakened my
+      curiosity, along with the distant seas, its island-sized body, and dangers no
+      one could name.
+    pause_after_ms: 200
+- id: forbidden_seas
+  title: Forbidden Seas
+  image: assets/keyframes/021_phantom.png
+  end_image: assets/keyframes/022_forbidden_seas.png
+  motion_prompt: The whaling ship leaves the last harbor light and enters a vast unfamiliar
+    ocean, Ishmael small at the bow as dark headlands recede, slow widening camera,
+    restrained anticipation, mouth closed, no visible speech, photorealistic nineteenth-century
+    voyage, no text.
+  duration_ms: 13000
+  ambience:
+    file: assets/ambience/night_sea.wav
+    description: Deep night ocean, low wind, hull groans, and a distant whale exhalation.
+    gain_db: -24.0
+  lines:
+  - id: forbidden_seas_modern
+    speaker: ishmael
+    text: I have always been restless for distant things. I want to sail into forbidden
+      seas and reach coasts beyond the familiar limits of my world.
+    pause_after_ms: 300
+- id: wonder_world
+  title: The Wonder-World Opens
+  image: assets/keyframes/022_forbidden_seas.png
+  end_image: assets/keyframes/023_wonder_world.png
+  motion_prompt: Moonlit fog opens ahead of Ishmael's ship into an immense ocean vista;
+    several distant whale backs surface in procession and one pale whale emerges like
+    a snow hill, slow final push toward mystery, mouth closed, no visible speech,
+    physically believable water, no attack, no text.
+  duration_ms: 13000
+  ambience:
+    file: assets/ambience/night_sea.wav
+    description: Deep night ocean, low wind, hull groans, and a distant whale exhalation.
+    gain_db: -24.0
+  lines:
+  - id: wonder_world_modern
+    speaker: ishmael
+    text: 'So I welcomed the whaling voyage. The gates of a world of wonder opened
+      before me: endless whales moving through my imagination, and above them one
+      vast pale phantom like a hill of snow.'
+    pause_after_ms: 100

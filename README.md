@@ -13,14 +13,46 @@ Kitap geldiğinde Codex; uyarlama metnini, konuşmacıları, sahne bölünmesini
 promptları ve sahne görsellerini hazırlayacak. Bu repo üretim tesisidir; kitabın
 kendisi veya telifli metin şimdiden repoya konmaz.
 
-## Hazır Moby-Dick pilotu
+## Hazır Moby-Dick uyarlaması
 
-Depo, 51.9 saniyelik dört sahneli ilk pilotu içerir. Ishmael'in İngilizce dış
-ses anlatımı `en-US-BrianMultilingualNeural` ile hazırlanmıştır; karakterler
-görüntü içinde konuşmaz. Altyazılar, cue zamanları ve dört sinematik başlangıç
-görseli önceden hazırlanmıştır. Colab defteri
-`deliverables/moby_dick_pilot_colab.zip` paketini otomatik açar; farklı bir
-proje seçilmedikçe `PROJECT_DIR` boş bırakılabilir.
+Depo artık verilen “Loomings” metninden hazırlanmış tam 5 dakikalık uyarlama
+paketini içerir. Ortak görsel plan 22 klip ve birbirine bağlanan 23 anahtar
+kareden oluşur. Her klip LTX-2.3'e `first frame + last frame + audio` olarak
+gider; bir klibin son karesi sonraki klibin ilk karesidir.
+
+İki Brian anlatımı hazırdır:
+
+- `faithful`: yalnızca kaynak metinden birebir alıntılarla kısaltılmış sürüm.
+- `modern`: olay, dönem ve bakış açısını değiştirmeden güncel İngilizce.
+
+Her iki sürüm aynı 300 saniyelik görsel zaman çizelgesini kullanır. Colab
+görselleri yalnızca `faithful` sesle bir kez render eder; `modern` final aynı
+video akışına ikinci ses ve altyazı mux edilerek üretilir. Düşük seviyeli yağmur,
+liman, dere, gemi güvertesi ve gece denizi ortamları vardır; müzik yoktur.
+Karakterler görüntü içinde konuşmaz ve dudak senkronu gerekmez.
+
+Colab defteri `deliverables/moby_dick_5m_colab.zip` paketini otomatik açar;
+farklı bir proje seçilmedikçe `PROJECT_DIR` boş bırakılabilir. Eski 51.9
+saniyelik dört sahneli pilot da karşılaştırma için korunmuştur.
+
+## Uyarlama katmanı
+
+Kaynak sınırı, iki dil modu, görsel yorumlar ve spoiler politikası
+`projects/moby_dick_pilot/adaptation.yaml` içinde tutulur. Aşağıdaki komut iki
+ortak-görselli proje dosyasını üretir; kaynak metin Colab paketine eklenmez:
+
+```powershell
+book-video adapt --adaptation projects/moby_dick_pilot/adaptation.yaml --output-dir projects/moby_dick_pilot
+```
+
+Her varyant `book-video prepare` ile Brian TTS ve gerçek süre kontrolünden
+geçer. Sabit sahne yuvasını aşan anlatım kesilmez veya hızlandırılmaz; sahne
+kimliği ve taşma miktarıyla hata verir. Hazırlanan iki ses ve tek render planı
+`book-video bundle` ile taşınabilir pakete dönüştürülür. Render sonrasında:
+
+```powershell
+book-video mux --video final.mp4 --audio variants/modern/audio/master.mp3 --subtitles variants/modern/audio/subtitles.srt --output final-modern.mp4
+```
 
 ## Yerel hazırlık
 

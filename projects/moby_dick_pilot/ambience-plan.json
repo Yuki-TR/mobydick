@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "music": false,
+  "scenes": [
+    {
+      "id": "call_me_ishmael",
+      "file": "assets/ambience/rainy_city.wav",
+      "description": "Fine rain, distant carriage wheels, and a faint harbor wind.",
+      "gain_db": -26.0,
+      "duration_ms": 14000
+    },
+    {
+      "id": "november_in_the_soul",
+      "file": "assets/ambience/rainy_city.wav",
+      "description": "Fine rain, distant carriage wheels, and a faint harbor wind.",
+      "gain_db": -26.0,
+      "duration_ms": 14000
+    },
+    {
+      "id": "substitute_for_pistol",
+      "file": "assets/ambience/rainy_city.wav",
+      "description": "Fine rain, distant carriage wheels, and a faint harbor wind.",
+      "gain_db": -26.0,
+      "duration_ms": 14000
+    },
+    {
+      "id": "insular_city",
+      "file": "assets/ambience/harbor.wav",
+      "description": "Harbor water, distant rigging, gulls, and restrained dock activity.",
+      "gain_db": -27.0,
+      "duration_ms": 14000
+    },
+    {
+      "id": "silent_sentinels",
+      "file": "assets/ambience/harbor.wav",
+      "description": "Harbor water, distant rigging, gulls, and restrained dock activity.",
+      "gain_db": -27.0,
+      "duration_ms": 14000
+    },
+    {
+      "id": "landsmen_at_the_edge",
+      "file": "assets/ambience/harbor.wav",
+      "description": "Harbor water, distant rigging, gulls, and restrained dock activity.",
+      "gain_db": -27.0,
+      "duration_ms": 14000
+    },
+    {
+      "id": "extremest_limit",
+      "file": "assets/ambience/harbor.wav",
+      "description": "Harbor water, distant rigging, gulls, and restrained dock activity.",
+      "gain_db": -27.0,
+      "duration_ms": 14000
+    },
+    {
+      "id": "magnetic_water",
+      "file": "assets/ambience/harbor.wav",
+      "description": "Harbor water, distant rigging, gulls, and restrained dock activity.",
+      "gain_db": -27.0,
+      "duration_ms": 14000
+    },
+    {
+      "id": "path_to_water",
+      "file": "assets/ambience/stream.wav",
+      "description": "A quiet stream, light leaves, distant birds, and soft open-country wind.",
+      "gain_db": -27.0,
+      "duration_ms": 14000
+    },
+    {
+      "id": "meditation_and_water",
+      "file": "assets/ambience/stream.wav",
+      "description": "A quiet stream, light leaves, distant birds, and soft open-country wind.",
+      "gain_db": -27.0,
+      "duration_ms": 14000
+    },
+    {
+      "id": "magic_stream",
+      "file": "assets/ambience/stream.wav",
+      "description": "A quiet stream, light leaves, distant birds, and soft open-country wind.",
+      "gain_db": -27.0,
+      "duration_ms": 14000
+    },
+    {
+      "id": "the_missing_charm",
+      "file": "assets/ambience/stream.wav",
+      "description": "A quiet stream, light leaves, distant birds, and soft open-country wind.",
+      "gain_db": -27.0,
+      "duration_ms": 14000
+    },
+    {
+      "id": "phantom_of_life",
+      "file": "assets/ambience/stream.wav",
+      "description": "A quiet stream, light leaves, distant birds, and soft open-country wind.",
+      "gain_db": -27.0,
+      "duration_ms": 14000
+    },
+    {
+      "id": "never_a_passenger",
+      "file": "assets/ambience/ship_deck.wav",
+      "description": "Open-sea wind, timber hull creaks, rigging, and low waves against the bow.",
+      "gain_db": -25.0,
+      "duration_ms": 14000
+    },
+    {
+      "id": "before_the_mast",
+      "file": "assets/ambience/ship_deck.wav",
+      "description": "Open-sea wind, timber hull creaks, rigging, and low waves against the bow.",
+      "gain_db": -25.0,
+      "duration_ms": 13000
+    },
+    {
+      "id": "who_is_not_a_slave",
+      "file": "assets/ambience/ship_deck.wav",
+      "description": "Open-sea wind, timber hull creaks, rigging, and low waves against the bow.",
+      "gain_db": -25.0,
+      "duration_ms": 13000
+    },
+    {
+      "id": "being_paid",
+      "file": "assets/ambience/ship_deck.wav",
+      "description": "Open-sea wind, timber hull creaks, rigging, and low waves against the bow.",
+      "gain_db": -25.0,
+      "duration_ms": 13000
+    },
+    {
+      "id": "pure_air",
+      "file": "assets/ambience/ship_deck.wav",
+      "description": "Open-sea wind, timber hull creaks, rigging, and low waves against the bow.",
+      "gain_db": -25.0,
+      "duration_ms": 13000
+    },
+    {
+      "id": "fates_programme",
+      "file": "assets/ambience/ship_deck.wav",
+      "description": "Open-sea wind, timber hull creaks, rigging, and low waves against the bow.",
+      "gain_db": -25.0,
+      "duration_ms": 13000
+    },
+    {
+      "id": "great_whale",
+      "file": "assets/ambience/night_sea.wav",
+      "description": "Deep night ocean, low wind, hull groans, and a distant whale exhalation.",
+      "gain_db": -24.0,
+      "duration_ms": 13000
+    },
+    {
+      "id": "forbidden_seas",
+      "file": "assets/ambience/night_sea.wav",
+      "description": "Deep night ocean, low wind, hull groans, and a distant whale exhalation.",
+      "gain_db": -24.0,
+      "duration_ms": 13000
+    },
+    {
+      "id": "wonder_world",
+      "file": "assets/ambience/night_sea.wav",
+      "description": "Deep night ocean, low wind, hull groans, and a distant whale exhalation.",
+      "gain_db": -24.0,
+      "duration_ms": 13000
+    }
+  ]
+}

@@ -39,12 +39,22 @@ class LineSpec:
 
 
 @dataclass(frozen=True)
+class AmbienceSpec:
+    file: str
+    description: str
+    gain_db: float = -24.0
+
+
+@dataclass(frozen=True)
 class SceneSpec:
     id: str
     title: str
     image: str
+    end_image: str | None
     motion_prompt: str
     lines: tuple[LineSpec, ...]
+    duration_ms: int | None = None
+    ambience: AmbienceSpec | None = None
 
 
 @dataclass(frozen=True)
@@ -99,6 +109,13 @@ def _positive_int(value: Any, path: str) -> int:
     return value
 
 
+def _scene_duration(value: Any, path: str) -> int:
+    duration = _positive_int(value, path)
+    if duration > 15_000:
+        raise ProjectValidationError(f"{path} must be 1..15000")
+    return duration
+
+
 def project_from_dict(raw: Mapping[str, Any]) -> ProjectSpec:
     root = _mapping(raw, "project file")
     version = _need(root, "version", "root")
@@ -129,6 +146,7 @@ def project_from_dict(raw: Mapping[str, Any]) -> ProjectSpec:
     scene_ids: set[str] = set()
     line_ids: set[str] = set()
     scenes: list[SceneSpec] = []
+    fixed_duration_count = 0
     for scene_index, raw_scene in enumerate(raw_scenes):
         path = f"scenes[{scene_index}]"
         item = _mapping(raw_scene, path)
@@ -158,14 +176,50 @@ def project_from_dict(raw: Mapping[str, Any]) -> ProjectSpec:
                     pause_after_ms=pause,
                 )
             )
+        duration_ms = item.get("duration_ms")
+        if duration_ms is not None:
+            duration_ms = _scene_duration(duration_ms, f"{path}.duration_ms")
+            fixed_duration_count += 1
+        ambience = None
+        if item.get("ambience") is not None:
+            raw_ambience = _mapping(item["ambience"], f"{path}.ambience")
+            raw_gain = raw_ambience.get("gain_db", -24.0)
+            if isinstance(raw_gain, bool) or not isinstance(raw_gain, (int, float)):
+                raise ProjectValidationError(f"{path}.ambience.gain_db must be a number")
+            gain_db = float(raw_gain)
+            if gain_db < -60.0 or gain_db > 0.0:
+                raise ProjectValidationError(f"{path}.ambience.gain_db must be -60..0")
+            ambience = AmbienceSpec(
+                file=_asset_path(
+                    _need(raw_ambience, "file", f"{path}.ambience"),
+                    f"{path}.ambience.file",
+                ),
+                description=_text(
+                    _need(raw_ambience, "description", f"{path}.ambience"),
+                    f"{path}.ambience.description",
+                ),
+                gain_db=gain_db,
+            )
         scenes.append(
             SceneSpec(
                 id=scene_id,
                 title=_text(_need(item, "title", path), f"{path}.title"),
                 image=_asset_path(_need(item, "image", path), f"{path}.image"),
+                end_image=(
+                    _asset_path(item["end_image"], f"{path}.end_image")
+                    if item.get("end_image") is not None
+                    else None
+                ),
                 motion_prompt=_text(_need(item, "motion_prompt", path), f"{path}.motion_prompt"),
                 lines=tuple(lines),
+                duration_ms=duration_ms,
+                ambience=ambience,
             )
+        )
+
+    if fixed_duration_count not in (0, len(scenes)):
+        raise ProjectValidationError(
+            "scenes must either all define duration_ms or all use measured timing"
         )
 
     spec = ProjectSpec(
@@ -199,9 +253,18 @@ def validate_project(project: ProjectSpec) -> ProjectSpec:
 
 def validate_project_assets(project: ProjectSpec, project_root: str | Path) -> ProjectSpec:
     root = Path(project_root).resolve()
-    missing = [scene.image for scene in project.scenes if not (root / scene.image).is_file()]
-    if missing:
-        raise ProjectValidationError(f"scene image is missing: {missing[0]}")
+    image_paths = [scene.image for scene in project.scenes]
+    image_paths.extend(scene.end_image for scene in project.scenes if scene.end_image)
+    missing_images = [image for image in image_paths if not (root / image).is_file()]
+    if missing_images:
+        raise ProjectValidationError(f"scene image is missing: {missing_images[0]}")
+    missing_ambience = [
+        scene.ambience.file
+        for scene in project.scenes
+        if scene.ambience is not None and not (root / scene.ambience.file).is_file()
+    ]
+    if missing_ambience:
+        raise ProjectValidationError(f"scene ambience is missing: {missing_ambience[0]}")
     return project
 
 

@@ -21,6 +21,7 @@
       "commit": "741bab9bb1da495e96949286695fccfd3ec931ff",
       "destination": "creative-skills",
       "requirements": [],
+      "patches": ["scripts/colab/patches/creative-skills-flf2v.patch"],
       "required": true
     }
   ],

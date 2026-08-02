@@ -8,7 +8,13 @@ from pathlib import Path
 
 import yaml
 
-from .edge_audio import EdgeAudioRenderer
+from .adaptation import (
+    AdaptationValidationError,
+    load_adaptation,
+    write_adaptation_variants,
+)
+from .edge_audio import EdgeAudioRenderer, _ffmpeg_executable
+from .handoff import HandoffError, mux_variant, write_handoff_bundle
 from .schema import (
     ProjectValidationError,
     load_project,
@@ -21,6 +27,31 @@ from .upstream import build_drama_spec
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="book-video")
     commands = parser.add_subparsers(dest="command", required=True)
+    adapt = commands.add_parser(
+        "adapt", help="compile faithful and modern narration variants"
+    )
+    adapt.add_argument("--adaptation", type=Path, required=True)
+    adapt.add_argument("--output-dir", type=Path, required=True)
+    adapt.add_argument("--json", action="store_true", dest="as_json")
+
+    bundle = commands.add_parser(
+        "bundle", help="package one shared render plan and two prepared audio variants"
+    )
+    bundle.add_argument("--adaptation", type=Path, required=True)
+    bundle.add_argument("--faithful-build", type=Path, required=True)
+    bundle.add_argument("--modern-build", type=Path, required=True)
+    bundle.add_argument("--output-dir", type=Path, required=True)
+    bundle.add_argument("--archive", type=Path)
+    bundle.add_argument("--json", action="store_true", dest="as_json")
+
+    mux = commands.add_parser(
+        "mux", help="reuse a rendered video with another narration and subtitles"
+    )
+    mux.add_argument("--video", type=Path, required=True)
+    mux.add_argument("--audio", type=Path, required=True)
+    mux.add_argument("--subtitles", type=Path)
+    mux.add_argument("--output", type=Path, required=True)
+
     prepare = commands.add_parser("prepare", help="render Edge audio and compile drama YAML")
     prepare.add_argument("--project", type=Path, required=True)
     prepare.add_argument("--output-dir", type=Path, required=True)
@@ -54,7 +85,11 @@ def _prepare(args: argparse.Namespace) -> int:
         return 0
 
     validate_project_assets(project, args.project.parent)
-    audio = EdgeAudioRenderer().render(project=project, output_dir=args.output_dir / "audio")
+    audio = EdgeAudioRenderer().render(
+        project=project,
+        output_dir=args.output_dir / "audio",
+        project_root=args.project.parent,
+    )
     spec = build_drama_spec(
         project=project,
         timeline=audio.timeline,
@@ -68,6 +103,52 @@ def _prepare(args: argparse.Namespace) -> int:
     spec_path.write_text(yaml.safe_dump(spec, sort_keys=False), encoding="utf-8")
     result = {"status": "prepared", "spec": str(spec_path), "audio": str(audio.master_audio_path)}
     print(json.dumps(result) if args.as_json else yaml.safe_dump(result, sort_keys=False))
+    return 0
+
+
+def _adapt(args: argparse.Namespace) -> int:
+    adaptation = load_adaptation(args.adaptation)
+    artifacts = write_adaptation_variants(adaptation, output_dir=args.output_dir)
+    result = {
+        "status": "adapted",
+        "adaptation_id": adaptation.id,
+        "modes": list(artifacts),
+        "target_duration_sec": adaptation.target_duration_sec,
+        "projects": {mode: str(path) for mode, path in artifacts.items()},
+    }
+    print(json.dumps(result) if args.as_json else yaml.safe_dump(result, sort_keys=False))
+    return 0
+
+
+def _bundle(args: argparse.Namespace) -> int:
+    adaptation = load_adaptation(args.adaptation)
+    spec = write_handoff_bundle(
+        adaptation,
+        prepared_builds={
+            "faithful": args.faithful_build,
+            "modern": args.modern_build,
+        },
+        output_dir=args.output_dir,
+        archive_path=args.archive,
+    )
+    result = {
+        "status": "bundled",
+        "render_spec": str(spec),
+        "archive": str(args.archive) if args.archive else None,
+    }
+    print(json.dumps(result) if args.as_json else yaml.safe_dump(result, sort_keys=False))
+    return 0
+
+
+def _mux(args: argparse.Namespace) -> int:
+    output = mux_variant(
+        ffmpeg=_ffmpeg_executable(),
+        video=args.video,
+        audio=args.audio,
+        subtitles=args.subtitles,
+        output=args.output,
+    )
+    print(yaml.safe_dump({"status": "muxed", "output": str(output)}, sort_keys=False))
     return 0
 
 
@@ -89,8 +170,21 @@ def _render(args: argparse.Namespace) -> int:
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
+        if args.command == "adapt":
+            return _adapt(args)
+        if args.command == "bundle":
+            return _bundle(args)
+        if args.command == "mux":
+            return _mux(args)
         return _prepare(args) if args.command == "prepare" else _render(args)
-    except (ProjectValidationError, ValueError, OSError, subprocess.SubprocessError) as exc:
+    except (
+        AdaptationValidationError,
+        HandoffError,
+        ProjectValidationError,
+        ValueError,
+        OSError,
+        subprocess.SubprocessError,
+    ) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
 

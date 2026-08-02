@@ -129,7 +129,7 @@ def _write_master(
         for index, clip in enumerate(clips):
             parts.append(clip)
             pause = pauses_ms[index]
-            if pause > 0 and index < len(clips) - 1:
+            if pause > 0:
                 silence = tmp / f"silence-{index:04}.mp3"
                 subprocess.run(
                     [
@@ -149,6 +149,81 @@ def _write_master(
             [ffmpeg, "-hide_banner", "-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(concat_file), "-codec:a", "libmp3lame", str(output)],
             check=True,
         )
+
+
+def _pause_gaps(timeline: Timeline) -> list[int]:
+    """Return silence after every cue, including a fixed slot's final tail."""
+    gaps: list[int] = []
+    for index, cue in enumerate(timeline.cues):
+        next_start = (
+            timeline.cues[index + 1].start_ms
+            if index + 1 < len(timeline.cues)
+            else timeline.duration_ms
+        )
+        gaps.append(max(0, next_start - cue.end_ms))
+    return gaps
+
+
+def _mix_ambience(
+    *,
+    narration: Path,
+    output: Path,
+    project: ProjectSpec,
+    timeline: Timeline,
+    project_root: Path,
+) -> None:
+    ambient_scenes = [scene for scene in project.scenes if scene.ambience is not None]
+    if not ambient_scenes:
+        shutil.copyfile(narration, output)
+        return
+
+    command = [_ffmpeg_executable(), "-hide_banner", "-loglevel", "error", "-y", "-i", str(narration)]
+    for scene in ambient_scenes:
+        assert scene.ambience is not None
+        ambience_path = (project_root / scene.ambience.file).resolve()
+        if not ambience_path.is_relative_to(project_root.resolve()) or not ambience_path.is_file():
+            raise ValueError(f"scene ambience is missing or unsafe: {scene.ambience.file}")
+        command.extend(["-stream_loop", "-1", "-i", str(ambience_path)])
+
+    filters: list[str] = []
+    labels: list[str] = []
+    start_ms = 0
+    input_index = 1
+    for scene in project.scenes:
+        if scene.duration_ms is None:
+            scene_cues = [cue for cue in timeline.cues if cue.scene_id == scene.id]
+            scene_end = scene_cues[-1].end_ms + scene.lines[-1].pause_after_ms
+            duration_ms = scene_end - scene_cues[0].start_ms
+        else:
+            duration_ms = scene.duration_ms
+        if scene.ambience is not None:
+            label = f"amb{input_index}"
+            filters.append(
+                f"[{input_index}:a]atrim=duration={duration_ms / 1000:.3f},"
+                f"asetpts=PTS-STARTPTS,volume={scene.ambience.gain_db:g}dB,"
+                f"adelay={start_ms}|{start_ms}[{label}]"
+            )
+            labels.append(f"[{label}]")
+            input_index += 1
+        start_ms += duration_ms
+    filters.append(
+        f"[0:a]{''.join(labels)}amix=inputs={1 + len(labels)}:"
+        "duration=first:dropout_transition=0,alimiter=limit=0.95[out]"
+    )
+    command.extend(
+        [
+            "-filter_complex",
+            ";".join(filters),
+            "-map",
+            "[out]",
+            "-codec:a",
+            "libmp3lame",
+            "-b:a",
+            "192k",
+            str(output),
+        ]
+    )
+    subprocess.run(command, check=True)
 
 
 def _ffmpeg_executable() -> str:
@@ -182,16 +257,29 @@ class EdgeAudioRenderer:
     def __init__(self, *, backend: SynthesisBackend | None = None):
         self.backend = backend or EdgeTTSBackend()
 
-    def render(self, *, project: ProjectSpec, output_dir: str | Path) -> AudioArtifacts:
+    def render(
+        self,
+        *,
+        project: ProjectSpec,
+        output_dir: str | Path,
+        project_root: str | Path | None = None,
+    ) -> AudioArtifacts:
         validate_project(project)
         destination = Path(output_dir)
         clips_dir = destination / "clips"
         clips_dir.mkdir(parents=True, exist_ok=True)
+        for stale_name in (
+            "master.mp3",
+            "narration.mp3",
+            "manifest.json",
+            "cues.json",
+            "subtitles.srt",
+        ):
+            (destination / stale_name).unlink(missing_ok=True)
 
         durations: dict[str, int] = {}
         clip_entries: list[dict[str, Any]] = []
         clip_paths: list[Path] = []
-        pauses: list[int] = []
         for scene in project.scenes:
             for line in scene.lines:
                 speaker = project.speakers[line.speaker]
@@ -213,7 +301,6 @@ class EdgeAudioRenderer:
                 )
                 durations[line.id] = duration_ms
                 clip_paths.append(clip_path)
-                pauses.append(line.pause_after_ms)
                 clip_entries.append(
                     {
                         "id": line.id,
@@ -224,9 +311,23 @@ class EdgeAudioRenderer:
                 )
 
         timeline = build_timeline(project, line_durations_ms=durations)
-        master = destination / "master.mp3"
+        narration_master = destination / "narration.mp3"
         _write_master(
-            backend=self.backend, clips=clip_paths, pauses_ms=pauses, output=master
+            backend=self.backend,
+            clips=clip_paths,
+            pauses_ms=_pause_gaps(timeline),
+            output=narration_master,
+        )
+        master = destination / "master.mp3"
+        has_ambience = any(scene.ambience is not None for scene in project.scenes)
+        if has_ambience and project_root is None:
+            raise ValueError("project_root is required when scene ambience is configured")
+        _mix_ambience(
+            narration=narration_master,
+            output=master,
+            project=project,
+            timeline=timeline,
+            project_root=Path(project_root or ".").resolve(),
         )
         cues = [
             {

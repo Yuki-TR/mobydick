@@ -29,26 +29,33 @@ def build_drama_spec(
 
     cue_by_id = {cue.id: cue for cue in timeline.cues}
     shots: list[dict] = []
+    fixed_cursor_ms = 0
     for scene in project.scenes:
         scene_cues = [cue_by_id[line.id] for line in scene.lines]
-        start_ms = scene_cues[0].start_ms
-        end_ms = scene_cues[-1].end_ms + scene.lines[-1].pause_after_ms
-        if scene is project.scenes[-1]:
-            end_ms = timeline.duration_ms
+        if scene.duration_ms is not None:
+            start_ms = fixed_cursor_ms
+            end_ms = start_ms + scene.duration_ms
+            fixed_cursor_ms = end_ms
+        else:
+            start_ms = scene_cues[0].start_ms
+            end_ms = scene_cues[-1].end_ms + scene.lines[-1].pause_after_ms
+            if scene is project.scenes[-1]:
+                end_ms = timeline.duration_ms
         duration_sec = round((end_ms - start_ms) / 1000, 3)
         if duration_sec > 15:
             raise UpstreamSpecError(
                 f"scene {scene.id} is {duration_sec}s; drama-video shots are limited to 15s"
             )
-        shots.append(
-            {
+        shot = {
                 "label": scene.id,
                 "image": portable(root / scene.image),
                 "prompt": scene.motion_prompt,
                 "start_sec": round(start_ms / 1000, 3),
                 "duration_sec": duration_sec,
             }
-        )
+        if scene.end_image is not None:
+            shot["last_image"] = portable(root / scene.end_image)
+        shots.append(shot)
     return {
         "title": project.title,
         "video": {
