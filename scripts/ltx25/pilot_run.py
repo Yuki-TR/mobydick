@@ -160,6 +160,8 @@ def main() -> int:
     parser.add_argument("--height", type=int, default=720)
     parser.add_argument("--fps", type=int, default=24)
     parser.add_argument("--seed", type=int, default=None)
+    parser.add_argument("--fast-preview", action="store_true",
+                        help="768x432 render (piksel sayısı 2.7x azalır, diffusion ~2.5x hızlanır)")
     parser.add_argument("--port", type=int, default=8188)
     parser.add_argument("--output-dir", type=Path, default=Path("pilot_out"))
     parser.add_argument("--skip-install", action="store_true")
@@ -168,6 +170,10 @@ def main() -> int:
     args.output_dir.mkdir(parents=True, exist_ok=True)
     manifest = colab_runtime.load_manifest(args.manifest)
     base_url = f"http://127.0.0.1:{args.port}"
+
+    width, height = (768, 432) if args.fast_preview else (args.width, args.height)
+    if args.fast_preview:
+        print(f"FAST PREVIEW: {width}x{height} (varsayilan {args.width}x{args.height})", flush=True)
 
     colab_runtime.host_preflight(manifest)
     if not args.skip_install:
@@ -189,8 +195,8 @@ def main() -> int:
         base_url=base_url, graph_builder=workflow.build_flf2v_graph,
         graph_builder_module=workflow,
         comfy_input_dir=comfy_input_dir, first=args.first, last=args.last,
-        prompt=args.prompt, duration_sec=args.duration, width=args.width,
-        height=args.height, fps=args.fps, output_dir=args.output_dir, seed=args.seed,
+        prompt=args.prompt, duration_sec=args.duration, width=width,
+        height=height, fps=args.fps, output_dir=args.output_dir, seed=args.seed,
     )
     print("video:", video, flush=True)
 
