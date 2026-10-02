@@ -64,8 +64,11 @@ def build_manifest(token: str) -> dict:
             raise SystemExit(f"HATA: {spec['path']} depoda bulunamadı")
         lfs = entry.get("lfs") or {}
         sha = lfs.get("oid")
-        if not sha or lfs.get("oid_type") != "sha256":
-            raise SystemExit(f"HATA: {spec['path']} için sha256 oid alınamadı: {lfs}")
+        # HF tree API her zaman oid_type dondurmez (null gelebilir); oid alanı
+        # LFS icin sha256'dir. 64 hex karakterlik oid yeterli bir kanittir.
+        oid_type = lfs.get("oid_type") or "sha256"
+        if not sha or oid_type != "sha256" or len(sha) != 64:
+            raise SystemExit(f"HATA: {spec['path']} icin sha256 oid alinamadi: {lfs}")
         assets.append(
             {
                 "name": spec["name"],
