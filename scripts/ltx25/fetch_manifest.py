@@ -17,8 +17,35 @@ import json
 import os
 import sys
 import urllib.request
+from pathlib import Path
 
 REPO = "Lightricks/LTX-2.5"
+
+
+def flf2v_node_classes() -> list[str]:
+    """Pilotun fiilen kullandığı ComfyUI node sınıfları (tek gerçek kaynak).
+
+    ``install()`` → ``validate_manifest(require_complete=True)`` boş
+    ``required_node_classes`` reddeder; ``runtime_preflight`` listedekileri
+    ``/object_info`` ile karşılaştırır. Liste graph'ın GERÇEK class setidir
+    (superset değil) — graph builder'ı yerelde çalıştırıp çıkarttık:
+    37 node, 27 benzersiz sınıf, ``prompt_enhance=False``.
+    """
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from ltx25_api_graph import build_flf2v_graph
+
+    graph = build_flf2v_graph(
+        prompt="pilot",
+        first_image="first.png",
+        last_image="last.png",
+        width=1280,
+        height=720,
+        fps=24,
+        duration_sec=14,
+        seed=1,
+        prompt_enhance=False,
+    )
+    return sorted({node["class_type"] for node in graph.values()})
 # Resmî FLF2V workflow'unun kullandığı 4 dosya (docs.comfy.org LTX-2.5/FLF2V)
 ASSETS = [
     {
@@ -109,7 +136,7 @@ def build_manifest(token: str) -> dict:
             "minimum_free_disk_gb": 60,
             "minimum_gpu_vram_gb": 22,
             "required_model_paths": [a["destination"] for a in assets],
-            "required_node_classes": [],
+            "required_node_classes": flf2v_node_classes(),
         },
         "notes": [
             "Pilot: LTX-2.5 distilled FLF2V, tek sahne. SHA'lar HF tree API'sinden o an alınır.",
